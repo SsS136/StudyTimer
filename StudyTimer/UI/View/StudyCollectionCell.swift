@@ -85,7 +85,7 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
             $0.height.equalToSuperview().multipliedBy(0.5)
         }
         subjectLabel.snp.makeConstraints {
-            $0.width.equalTo(45)
+            $0.width.greaterThanOrEqualTo(45)
         }
         time.snp.makeConstraints {
             $0.width.greaterThanOrEqualTo(60)
@@ -103,8 +103,33 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
     func setupFirstCell(_ entire:Entire,mode:StudyPageViewController.Mode) {
         self.entire = entire
         self.mode = .entire
-        self.backgroundColor = .whiteBlack
-        
+        self.backgroundColor = .clear
+        let largeVstack = VStack(frame: .zero).then {
+            $0.alignment = .center
+            $0.distribution = .fillEqually
+        }
+        self.addSubview(largeVstack)
+        let total = StateView(entire: entire, mode: mode, onText: "トータル")
+        let month = StateView(month: Month.shared, mode: mode, onText: "月")
+        largeVstack.addArrangedSubViews(views: [total,month])
+        largeVstack.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.centerX.centerY.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.88)
+        }
+        total.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.5)
+        }
+        month.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.5)
+        }
+        total.enableConstraints()
+        month.enableConstraints()
+    }
+    func setupBlank() {
+        self.backgroundColor = .clear
     }
 }
 class HStack : UIStackView {
@@ -157,184 +182,189 @@ extension UIStackView {
 class StateView : UIView, TimeConverter {
     
     var entire:Entire!
-
+    var mode:StudyPageViewController.Mode
     var month:Month!
+    var onText:String!
     
     init(entire:Entire,mode:StudyPageViewController.Mode,onText:String) {
         
         self.entire = entire
+        self.onText = onText
+        self.mode = mode
         super.init(frame: .zero)
-        
-        self.backgroundColor = .whiteBlack
-        let vstack = VStack(frame: .zero).then {
-            $0.alignment = .center
-            $0.distribution = .equalSpacing
-        }
-        let hstack = HStack(frame:.zero).then {
-            $0.alignment = .center
-            $0.distribution = .equalSpacing
-        }
-        let largeVstack = VStack(frame: .zero).then {
-            $0.alignment = .center
-            $0.distribution = .equalSpacing
-        }
-        self.addSubview(largeVstack)
-        
-        
-        hstack.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.right.equalToSuperview().offset(-10)
-            $0.top.bottom.equalToSuperview()
-        }
-        let circle = KYCircularProgress(frame: .zero, showGuide: true).then {
-            $0.set(progress: Double(self.entire.entireProgress), duration: 0.1)
-            $0.colors = [.red]
-            $0.transform = CGAffineTransform(scaleX: -1, y: -1)
-        }
-        let percent = UILabel().then {
-            $0.text = "\(Int(self.entire.entireProgress * 100))%"
-            $0.textAlignment = .center
-            $0.textColor = .blackWhite
-            $0.font = .boldSystemFont(ofSize: 16)
-            $0.transform = CGAffineTransform(scaleX: -1, y: -1)
-        }
-        hstack.addArrangedSubViews(views: [vstack,circle])
-        vstack.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.48)
-            $0.height.equalToSuperview().multipliedBy(0.6)
-        }
-        circle.snp.makeConstraints {
-            $0.height.equalTo(hstack).multipliedBy(0.77)
-            $0.width.equalTo(hstack.snp.height).multipliedBy(0.77)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            circle.addSubview(percent)
-            percent.snp.makeConstraints {
-                $0.centerX.centerY.equalToSuperview()
-                $0.width.equalTo(60)
-                $0.height.equalTo(20)
+
+    }
+    func enableConstraints() {
+        if month == nil {
+            
+            self.backgroundColor = .clear
+            let vstack = VStack(frame: .zero).then {
+                $0.alignment = .center
+                $0.distribution = .equalSpacing
             }
-        }
-        let remain = UILabel().then {
-            switch mode {
-            case .remaining:
-                $0.text = onText
-            case .current:
-                $0.text = onText + "現在"
+            let hstack = HStack(frame:.zero).then {
+                $0.alignment = .center
+                $0.distribution = .equalSpacing
             }
-            $0.textAlignment = .left
-            $0.font = .boldSystemFont(ofSize: 25)
-            $0.textColor = .black
-        }
-        let hours = UILabel().then {
-            switch mode {
-            case .remaining:
-                $0.text = convertMiniteToHour(self.entire.entireRemainingTime)
-            case .current:
-                $0.text = convertMiniteToHour(self.entire.entireCurrentTime)
+            self.addSubview(hstack)
+            
+            
+            hstack.snp.makeConstraints {
+                $0.left.equalToSuperview().offset(10)
+                $0.right.equalToSuperview().offset(-10)
+                $0.top.bottom.equalToSuperview()
             }
-            $0.adjustsFontSizeToFitWidth = true
-            $0.textAlignment = .right
-            $0.font = .boldSystemFont(ofSize: 30)
-            $0.textColor = .black
-        }
-        vstack.addArrangedSubViews(views: [remain,hours])
-        remain.snp.makeConstraints {
-            $0.width.equalTo(vstack)
-            $0.height.equalTo(30)
-        }
-        hours.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.height.equalTo(40)
+            let circle = KYCircularProgress(frame: .zero, showGuide: true).then {
+                $0.set(progress: Double(self.entire.entireProgress), duration: 0.1)
+                $0.colors = [.red]
+                $0.transform = CGAffineTransform(scaleX: -1, y: -1)
+            }
+            let percent = UILabel().then {
+                $0.text = "\(Int(self.entire.entireProgress * 100))%"
+                $0.textAlignment = .center
+                $0.textColor = .blackWhite
+                $0.font = .boldSystemFont(ofSize: 16)
+                $0.transform = CGAffineTransform(scaleX: -1, y: -1)
+            }
+            hstack.addArrangedSubViews(views: [vstack,circle])
+            vstack.snp.makeConstraints {
+                $0.width.equalToSuperview().multipliedBy(0.48)
+                $0.height.equalToSuperview().multipliedBy(0.6)
+            }
+            circle.snp.makeConstraints {
+                $0.height.equalTo(hstack).multipliedBy(0.77)
+                $0.width.equalTo(hstack.snp.height).multipliedBy(0.77)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                circle.addSubview(percent)
+                percent.snp.makeConstraints {
+                    $0.centerX.centerY.equalToSuperview()
+                    $0.width.equalTo(60)
+                    $0.height.equalTo(20)
+                }
+            }
+            let remain = UILabel().then {
+                switch mode {
+                case .remaining:
+                    $0.text = onText + "残り"
+                case .current:
+                    $0.text = onText + "現在"
+                }
+                $0.textAlignment = .left
+                $0.font = .boldSystemFont(ofSize: 25)
+                $0.adjustsFontSizeToFitWidth = true
+                $0.textColor = .black
+            }
+            let hours = UILabel().then {
+                switch mode {
+                case .remaining:
+                    $0.text = convertMiniteToHour(self.entire.entireRemainingTime)
+                case .current:
+                    $0.text = convertMiniteToHour(self.entire.entireCurrentTime)
+                }
+                $0.adjustsFontSizeToFitWidth = true
+                $0.textAlignment = .right
+                $0.font = .boldSystemFont(ofSize: 30)
+                $0.textColor = .black
+            }
+            vstack.addArrangedSubViews(views: [remain,hours])
+            remain.snp.makeConstraints {
+                $0.width.equalTo(vstack)
+                $0.height.equalTo(30)
+            }
+            hours.snp.makeConstraints {
+                $0.width.equalToSuperview()
+                $0.height.equalTo(40)
+            }
+        }else{
+            
+            self.backgroundColor = .clear
+            let vstack = VStack(frame: .zero).then {
+                $0.alignment = .center
+                $0.distribution = .equalSpacing
+            }
+            let hstack = HStack(frame:.zero).then {
+                $0.alignment = .center
+                $0.distribution = .equalSpacing
+            }
+            self.addSubview(hstack)
+            
+            
+            hstack.snp.makeConstraints {
+                $0.left.equalToSuperview().offset(10)
+                $0.right.equalToSuperview().offset(-10)
+                $0.top.bottom.equalToSuperview()
+            }
+            let circle = KYCircularProgress(frame: .zero, showGuide: true).then {
+                $0.set(progress: Double(self.month.monthProgress), duration: 0.1)
+                $0.colors = [.red]
+                $0.transform = CGAffineTransform(scaleX: -1, y: -1)
+            }
+            let percent = UILabel().then {
+                $0.text = "\(Int(self.month.monthProgress * 100))%"
+                $0.textAlignment = .center
+                $0.textColor = .blackWhite
+                $0.font = .boldSystemFont(ofSize: 16)
+                $0.transform = CGAffineTransform(scaleX: -1, y: -1)
+            }
+            hstack.addArrangedSubViews(views: [vstack,circle])
+            vstack.snp.makeConstraints {
+                $0.width.equalToSuperview().multipliedBy(0.48)
+                $0.height.equalToSuperview().multipliedBy(0.6)
+            }
+            circle.snp.makeConstraints {
+                $0.height.equalTo(hstack).multipliedBy(0.77)
+                $0.width.equalTo(hstack.snp.height).multipliedBy(0.77)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                circle.addSubview(percent)
+                percent.snp.makeConstraints {
+                    $0.centerX.centerY.equalToSuperview()
+                    $0.width.equalTo(60)
+                    $0.height.equalTo(20)
+                }
+            }
+            let remain = UILabel().then {
+                switch mode {
+                case .remaining:
+                    $0.text = onText + "残り"
+                case .current:
+                    $0.text = onText + "現在"
+                }
+                $0.textAlignment = .left
+                $0.font = .boldSystemFont(ofSize: 25)
+                $0.textColor = .black
+            }
+            let hours = UILabel().then {
+                switch mode {
+                case .remaining:
+                    $0.text = convertMiniteToHour(self.month.monthRemainingTime)
+                case .current:
+                    $0.text = convertMiniteToHour(self.month.monthCurrentTime)
+                }
+                $0.adjustsFontSizeToFitWidth = true
+                $0.textAlignment = .right
+                $0.font = .boldSystemFont(ofSize: 30)
+                $0.textColor = .black
+            }
+            vstack.addArrangedSubViews(views: [remain,hours])
+            remain.snp.makeConstraints {
+                $0.width.equalTo(vstack)
+                $0.height.equalTo(30)
+            }
+            hours.snp.makeConstraints {
+                $0.width.equalToSuperview()
+                $0.height.equalTo(40)
+            }
         }
     }
     init(month:Month,mode:StudyPageViewController.Mode,onText:String) {
         
         self.month = month
+        self.mode = mode
+        self.onText = onText
         super.init(frame: .zero)
-        
-        self.backgroundColor = .whiteBlack
-        let vstack = VStack(frame: .zero).then {
-            $0.alignment = .center
-            $0.distribution = .equalSpacing
-        }
-        let hstack = HStack(frame:.zero).then {
-            $0.alignment = .center
-            $0.distribution = .equalSpacing
-        }
-        let largeVstack = VStack(frame: .zero).then {
-            $0.alignment = .center
-            $0.distribution = .equalSpacing
-        }
-        self.addSubview(largeVstack)
-        
-        
-        hstack.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.right.equalToSuperview().offset(-10)
-            $0.top.bottom.equalToSuperview()
-        }
-        let circle = KYCircularProgress(frame: .zero, showGuide: true).then {
-            $0.set(progress: Double(self.month.monthProgress), duration: 0.1)
-            $0.colors = [.red]
-            $0.transform = CGAffineTransform(scaleX: -1, y: -1)
-        }
-        let percent = UILabel().then {
-            $0.text = "\(Int(self.entire.entireProgress * 100))%"
-            $0.textAlignment = .center
-            $0.textColor = .blackWhite
-            $0.font = .boldSystemFont(ofSize: 16)
-            $0.transform = CGAffineTransform(scaleX: -1, y: -1)
-        }
-        hstack.addArrangedSubViews(views: [vstack,circle])
-        vstack.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.48)
-            $0.height.equalToSuperview().multipliedBy(0.6)
-        }
-        circle.snp.makeConstraints {
-            $0.height.equalTo(hstack).multipliedBy(0.77)
-            $0.width.equalTo(hstack.snp.height).multipliedBy(0.77)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            circle.addSubview(percent)
-            percent.snp.makeConstraints {
-                $0.centerX.centerY.equalToSuperview()
-                $0.width.equalTo(60)
-                $0.height.equalTo(20)
-            }
-        }
-        let remain = UILabel().then {
-            switch mode {
-            case .remaining:
-                $0.text = onText + "残り"
-            case .current:
-                $0.text = onText + "現在"
-            }
-            $0.textAlignment = .left
-            $0.font = .boldSystemFont(ofSize: 25)
-            $0.textColor = .black
-        }
-        let hours = UILabel().then {
-            switch mode {
-            case .remaining:
-                $0.text = convertMiniteToHour(self.month.monthRemainingTime)
-            case .current:
-                $0.text = convertMiniteToHour(self.month.monthCurrentTime)
-            }
-            $0.adjustsFontSizeToFitWidth = true
-            $0.textAlignment = .right
-            $0.font = .boldSystemFont(ofSize: 30)
-            $0.textColor = .black
-        }
-        vstack.addArrangedSubViews(views: [remain,hours])
-        remain.snp.makeConstraints {
-            $0.width.equalTo(vstack)
-            $0.height.equalTo(30)
-        }
-        hours.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.height.equalTo(40)
-        }
+
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -10,4 +10,5 @@ target 'StudyTimer' do
   pod 'SwiftTTPageController'
   pod 'SnapKit', '~> 5.0.0'
   pod 'KYCircularProgress'
+  pod 'TextFieldEffects'
 end

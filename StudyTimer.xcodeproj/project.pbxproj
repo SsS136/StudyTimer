@@ -14,6 +14,7 @@
 		230EDB1B269DA0EA006F4EF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230EDB19269DA0EA006F4EF4 /* Main.storyboard */; };
 		230EDB1D269DA0EF006F4EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230EDB1C269DA0EF006F4EF4 /* Assets.xcassets */; };
 		230EDB20269DA0EF006F4EF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230EDB1E269DA0EF006F4EF4 /* LaunchScreen.storyboard */; };
+		23226E6F269ECC0A002563AA /* NewSubjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23226E6E269ECC0A002563AA /* NewSubjectController.swift */; };
 		2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9E3269DBD9F00C325A1 /* Then.swift */; };
 		2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9E6269DC23100C325A1 /* CGRect+.swift */; };
 		2342E9EC269DC6EA00C325A1 /* StudyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */; };
@@ -33,6 +34,7 @@
 		230EDB1C269DA0EF006F4EF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		230EDB1F269DA0EF006F4EF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		230EDB21269DA0EF006F4EF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23226E6E269ECC0A002563AA /* NewSubjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubjectController.swift; sourceTree = "<group>"; };
 		2342E9E3269DBD9F00C325A1 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		2342E9E6269DC23100C325A1 /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCollectionViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				230EDB17269DA0EA006F4EF4 /* StudyPageViewController.swift */,
 				2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */,
+				23226E6E269ECC0A002563AA /* NewSubjectController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */,
 				230EDB18269DA0EA006F4EF4 /* StudyPageViewController.swift in Sources */,
 				2342E9F4269DD7D100C325A1 /* StudyCollectionCell.swift in Sources */,
+				23226E6F269ECC0A002563AA /* NewSubjectController.swift in Sources */,
 				230EDB14269DA0EA006F4EF4 /* AppDelegate.swift in Sources */,
 				230EDB16269DA0EA006F4EF4 /* SceneDelegate.swift in Sources */,
 				2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */,

@@ -9,31 +9,32 @@ import UIKit
 
 class StudyCollectionViewController : UIViewController {
     
-    lazy var subjects = DataSaver.subjects ?? []
-    lazy var entire = DataSaver.entire
-    
-    private lazy var combine:[Any] = {
-        var arr:[Any] = subjects 
+    var subjects:[Subject] {
+        return DataSaver.subjects ?? []
+    }
+    var entire:Entire {
+        return DataSaver.entire
+    }
+    var combine:[Any] {
+        var arr:[Any] = subjects
         arr.append(entire as Any)
         return arr
-    }()
+    }
     
-
-    let collectionView:UICollectionView = {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .dynamicDark
-        collectionView.register(StudyCollectionCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
-        return collectionView
-    }()
+    var collectionView:UICollectionView!
     
     var mode:StudyPageViewController.Mode = .remaining {
         didSet{
-            self.collectionView.performBatchUpdates({
-                self.collectionView.reloadSections(IndexSet(integer: 0))
-                //self.collectionView.reloadData()
-            }, completion: nil)
+            UIView.animate(withDuration: 0.1, animations: {
+                self.collectionView.alpha = 0
+            },completion: {_ in
+                self.collectionView.removeFromSuperview()
+                self.setupCollectionView()
+                self.collectionView.alpha = 0
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.collectionView.alpha = 1
+                })
+            })
         }
     }
     override func viewDidLoad() {
@@ -42,6 +43,11 @@ class StudyCollectionViewController : UIViewController {
         setupCollectionView()
     }
     private func setupCollectionView() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .dynamicDark
+        collectionView.register(StudyCollectionCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         self.view.addSubview(collectionView)
@@ -60,26 +66,26 @@ class StudyCollectionViewController : UIViewController {
 extension StudyCollectionViewController : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
-            return CGSize(width: view.bounds.width - 40, height: 180)
+            return CGSize(width: view.bounds.width - 40, height: 270)
         }else{
             return CGSize(width: view.bounds.width - 40, height: 65)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return combine.count
+        return combine.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! StudyCollectionCell
         if indexPath.row == 0 {
-            print(entire)
             cell.setupFirstCell(entire ?? Entire(entireBaseTime: 0, entireCurrentTime: 0), mode: mode)
             cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             cell.layer.shadowColor = UIColor.darkGray.cgColor
             cell.layer.shadowOpacity = 0.4
             cell.layer.shadowRadius = 4
+        }else if indexPath.row == combine.count{
+            cell.setupBlank()
         }else{
-            print(subjects[indexPath.row - 1])
             cell.setupCell(subjects[indexPath.row - 1], mode: mode)
             cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             cell.layer.shadowColor = UIColor.darkGray.cgColor

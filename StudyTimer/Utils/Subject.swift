@@ -46,7 +46,7 @@ struct Entire : Codable {
     }
 }
 
-struct Month : Codable {
+final class Month : Codable {
     var monthBaseTime:Int
     var monthCurrentTime:Int //This variale will be reseted at the end of the month
     var monthRemainingTime:Int {
@@ -59,6 +59,11 @@ struct Month : Codable {
             guard monthBaseTime != 0 else { return 0 }
             return Float(monthCurrentTime) / Float(monthBaseTime)
         }
+    }
+    static let shared = Month(monthBaseTime: 0, monthCurrentTime: 0)
+    private init(monthBaseTime: Int, monthCurrentTime: Int) {
+        self.monthBaseTime = monthBaseTime
+        self.monthCurrentTime = monthCurrentTime
     }
 }
 
@@ -79,7 +84,13 @@ extension TimeConverter {
             let minite = round((hours - hour) * 60)
             return "\(Int(hour))時間\(Int(minite))分"
         }else{
+            print((Int(round(hours))))
             return "\(Int(round(hours)))時間"
         }
+    }
+    func convertHourToMinite(hour:Int,minite:Int) -> Int {
+        let hourToMinite = hour * 60
+        print(hourToMinite + minite)
+        return hourToMinite + minite
     }
 }

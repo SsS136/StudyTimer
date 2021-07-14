@@ -7,12 +7,14 @@ PODS:
   - SnapKit (5.0.1)
   - SwiftTTPageController (0.0.6)
   - SWXMLHash (5.0.1)
+  - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
   - FanMenu
   - KYCircularProgress
   - SnapKit (~> 5.0.0)
   - SwiftTTPageController
+  - TextFieldEffects
 
 SPEC REPOS:
   trunk:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftTTPageController
     - SWXMLHash
+    - TextFieldEffects
 
 SPEC CHECKSUMS:
   FanMenu: f26be76147954666be0b89ae6ffeb12b72167f2b
@@ -30,7 +33,8 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftTTPageController: a6430ed29b939a01d86c60320547b49cef1eac8f
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
+  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: ce6f7d5c3cacd5b94ef4e92a5672565f23f73a8a
+PODFILE CHECKSUM: befa36f6fb5d47207c71c665ac5e727b5d0547da
 
 COCOAPODS: 1.10.1
