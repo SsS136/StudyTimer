@@ -3,27 +3,47 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0353D526A2C036B49606F7F0 /* Pods_StudyTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1AE62999836226B791CDF17 /* Pods_StudyTimer.framework */; };
 		230EDB14269DA0EA006F4EF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230EDB13269DA0EA006F4EF4 /* AppDelegate.swift */; };
 		230EDB16269DA0EA006F4EF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230EDB15269DA0EA006F4EF4 /* SceneDelegate.swift */; };
-		230EDB18269DA0EA006F4EF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230EDB17269DA0EA006F4EF4 /* ViewController.swift */; };
+		230EDB18269DA0EA006F4EF4 /* StudyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230EDB17269DA0EA006F4EF4 /* StudyPageViewController.swift */; };
 		230EDB1B269DA0EA006F4EF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230EDB19269DA0EA006F4EF4 /* Main.storyboard */; };
 		230EDB1D269DA0EF006F4EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230EDB1C269DA0EF006F4EF4 /* Assets.xcassets */; };
 		230EDB20269DA0EF006F4EF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230EDB1E269DA0EF006F4EF4 /* LaunchScreen.storyboard */; };
+		2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9E3269DBD9F00C325A1 /* Then.swift */; };
+		2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9E6269DC23100C325A1 /* CGRect+.swift */; };
+		2342E9EC269DC6EA00C325A1 /* StudyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */; };
+		2342E9EE269DD39500C325A1 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9ED269DD39500C325A1 /* UIColor+.swift */; };
+		2342E9F0269DD44900C325A1 /* UX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9EF269DD44900C325A1 /* UX.swift */; };
+		2342E9F2269DD79200C325A1 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9F1269DD79200C325A1 /* Subject.swift */; };
+		2342E9F4269DD7D100C325A1 /* StudyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9F3269DD7D100C325A1 /* StudyCollectionCell.swift */; };
+		2342E9F6269DEF4800C325A1 /* DataSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9F5269DEF4800C325A1 /* DataSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		230EDB10269DA0EA006F4EF4 /* StudyTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		230EDB13269DA0EA006F4EF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		230EDB15269DA0EA006F4EF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		230EDB17269DA0EA006F4EF4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		230EDB17269DA0EA006F4EF4 /* StudyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPageViewController.swift; sourceTree = "<group>"; };
 		230EDB1A269DA0EA006F4EF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		230EDB1C269DA0EF006F4EF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		230EDB1F269DA0EF006F4EF4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		230EDB21269DA0EF006F4EF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2342E9E3269DBD9F00C325A1 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
+		2342E9E6269DC23100C325A1 /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
+		2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCollectionViewController.swift; sourceTree = "<group>"; };
+		2342E9ED269DD39500C325A1 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		2342E9EF269DD44900C325A1 /* UX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UX.swift; sourceTree = "<group>"; };
+		2342E9F1269DD79200C325A1 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		2342E9F3269DD7D100C325A1 /* StudyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCollectionCell.swift; sourceTree = "<group>"; };
+		2342E9F5269DEF4800C325A1 /* DataSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSaver.swift; sourceTree = "<group>"; };
+		B7158255DE0B62C3C1D15537 /* Pods-StudyTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.release.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.release.xcconfig"; sourceTree = "<group>"; };
+		D1E79E55199B9B413AEE5D0C /* Pods-StudyTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.debug.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.debug.xcconfig"; sourceTree = "<group>"; };
+		E1AE62999836226B791CDF17 /* Pods_StudyTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +51,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0353D526A2C036B49606F7F0 /* Pods_StudyTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		023F7EF9807F10F6AE255362 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E1AE62999836226B791CDF17 /* Pods_StudyTimer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		230EDB07269DA0EA006F4EF4 = {
 			isa = PBXGroup;
 			children = (
 				230EDB12269DA0EA006F4EF4 /* StudyTimer */,
 				230EDB11269DA0EA006F4EF4 /* Products */,
+				E0B0EE3DC88FE2E5464D215F /* Pods */,
+				023F7EF9807F10F6AE255362 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +87,72 @@
 		230EDB12269DA0EA006F4EF4 /* StudyTimer */ = {
 			isa = PBXGroup;
 			children = (
+				2342E9E8269DC26500C325A1 /* UI */,
+				2342E9E5269DC21300C325A1 /* Extensions */,
+				2342E9E2269DBD9200C325A1 /* Utils */,
 				230EDB13269DA0EA006F4EF4 /* AppDelegate.swift */,
 				230EDB15269DA0EA006F4EF4 /* SceneDelegate.swift */,
-				230EDB17269DA0EA006F4EF4 /* ViewController.swift */,
 				230EDB19269DA0EA006F4EF4 /* Main.storyboard */,
 				230EDB1C269DA0EF006F4EF4 /* Assets.xcassets */,
 				230EDB1E269DA0EF006F4EF4 /* LaunchScreen.storyboard */,
 				230EDB21269DA0EF006F4EF4 /* Info.plist */,
 			);
 			path = StudyTimer;
+			sourceTree = "<group>";
+		};
+		2342E9E2269DBD9200C325A1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2342E9E3269DBD9F00C325A1 /* Then.swift */,
+				2342E9EF269DD44900C325A1 /* UX.swift */,
+				2342E9F1269DD79200C325A1 /* Subject.swift */,
+				2342E9F5269DEF4800C325A1 /* DataSaver.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2342E9E5269DC21300C325A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2342E9E6269DC23100C325A1 /* CGRect+.swift */,
+				2342E9ED269DD39500C325A1 /* UIColor+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2342E9E8269DC26500C325A1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2342E9EA269DC27700C325A1 /* View */,
+				2342E9E9269DC26C00C325A1 /* ViewController */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		2342E9E9269DC26C00C325A1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				230EDB17269DA0EA006F4EF4 /* StudyPageViewController.swift */,
+				2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2342E9EA269DC27700C325A1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2342E9F3269DD7D100C325A1 /* StudyCollectionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E0B0EE3DC88FE2E5464D215F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1E79E55199B9B413AEE5D0C /* Pods-StudyTimer.debug.xcconfig */,
+				B7158255DE0B62C3C1D15537 /* Pods-StudyTimer.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +162,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 230EDB24269DA0EF006F4EF4 /* Build configuration list for PBXNativeTarget "StudyTimer" */;
 			buildPhases = (
+				EA27C1EA8A1FC9EBB2EF1EAB /* [CP] Check Pods Manifest.lock */,
 				230EDB0C269DA0EA006F4EF4 /* Sources */,
 				230EDB0D269DA0EA006F4EF4 /* Frameworks */,
 				230EDB0E269DA0EA006F4EF4 /* Resources */,
+				85C035B7D62FD2C3BA6F8D26 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,14 +222,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		85C035B7D62FD2C3BA6F8D26 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StudyTimer/Pods-StudyTimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StudyTimer/Pods-StudyTimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyTimer/Pods-StudyTimer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA27C1EA8A1FC9EBB2EF1EAB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StudyTimer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		230EDB0C269DA0EA006F4EF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				230EDB18269DA0EA006F4EF4 /* ViewController.swift in Sources */,
+				2342E9F6269DEF4800C325A1 /* DataSaver.swift in Sources */,
+				2342E9F2269DD79200C325A1 /* Subject.swift in Sources */,
+				2342E9F0269DD44900C325A1 /* UX.swift in Sources */,
+				2342E9EC269DC6EA00C325A1 /* StudyCollectionViewController.swift in Sources */,
+				2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */,
+				230EDB18269DA0EA006F4EF4 /* StudyPageViewController.swift in Sources */,
+				2342E9F4269DD7D100C325A1 /* StudyCollectionCell.swift in Sources */,
 				230EDB14269DA0EA006F4EF4 /* AppDelegate.swift in Sources */,
 				230EDB16269DA0EA006F4EF4 /* SceneDelegate.swift in Sources */,
+				2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */,
+				2342E9EE269DD39500C325A1 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,12 +423,14 @@
 		};
 		230EDB25269DA0EF006F4EF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1E79E55199B9B413AEE5D0C /* Pods-StudyTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G8RH83B4LT;
 				INFOPLIST_FILE = StudyTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,12 +444,14 @@
 		};
 		230EDB26269DA0EF006F4EF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7158255DE0B62C3C1D15537 /* Pods-StudyTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G8RH83B4LT;
 				INFOPLIST_FILE = StudyTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

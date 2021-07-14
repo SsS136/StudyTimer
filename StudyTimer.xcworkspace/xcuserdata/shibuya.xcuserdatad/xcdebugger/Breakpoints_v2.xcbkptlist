@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "333EC2BB-DC2F-458F-AC20-B132D6046282"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FC881097-6ACE-4273-BD98-36F5A5EE6BB1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StudyTimer/UI/ViewController/StudyCollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "mode"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "FC881097-6ACE-4273-BD98-36F5A5EE6BB1 - 69250ee5f3a254be"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StudyTimer.StudyCollectionViewController.mode.didset : StudyTimer.StudyPageViewController.Mode"
+                  moduleName = "StudyTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shibuya/Desktop/StudyTimer/StudyTimer/UI/ViewController/StudyCollectionViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "FC881097-6ACE-4273-BD98-36F5A5EE6BB1 - 3c2538a9f59bcced"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in StudyTimer.StudyCollectionViewController.mode.didset : StudyTimer.StudyPageViewController.Mode"
+                  moduleName = "StudyTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shibuya/Desktop/StudyTimer/StudyTimer/UI/ViewController/StudyCollectionViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
