@@ -15,7 +15,7 @@ class StudyCollectionViewController : UIViewController {
     var entire:Entire {
         return DataSaver.entire
     }
-    var combine:[Any] {
+    private var combine:[Any] {
         var arr:[Any] = subjects
         arr.append(entire as Any)
         return arr
@@ -62,6 +62,10 @@ class StudyCollectionViewController : UIViewController {
             }
         }
     }
+    private func presentNavigationController<T:UIViewController>(root:T,completion:(() -> Void)? = nil) {
+        let nav = UINavigationController(rootViewController: root)
+        self.present(nav, animated: true, completion: completion)
+    }
 }
 extension StudyCollectionViewController : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -78,7 +82,7 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! StudyCollectionCell
         if indexPath.row == 0 {
-            cell.setupFirstCell(entire ?? Entire(entireBaseTime: 0, entireCurrentTime: 0), mode: mode)
+            cell.setupFirstCell(entire, mode: mode)
             cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             cell.layer.shadowColor = UIColor.darkGray.cgColor
             cell.layer.shadowOpacity = 0.4
@@ -107,5 +111,10 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            presentNavigationController(root: TotalViewController())
+        }
     }
 }

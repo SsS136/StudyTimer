@@ -110,7 +110,8 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
         }
         self.addSubview(largeVstack)
         let total = StateView(entire: entire, mode: mode, onText: "トータル")
-        let month = StateView(month: Month.shared, mode: mode, onText: "月")
+        
+        let month = StateView(month: Month.shared, mode: mode, onText: "\(Calendar.current.component(.month, from: Date()))月")
         largeVstack.addArrangedSubViews(views: [total,month])
         largeVstack.snp.makeConstraints {
             $0.left.right.equalToSuperview()

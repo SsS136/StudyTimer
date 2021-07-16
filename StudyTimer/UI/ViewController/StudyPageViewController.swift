@@ -42,11 +42,7 @@ class StudyPageViewController: UIViewController {
     }
     #if DEBUG
     private func testSaveData() {
-        //DataSaver.SaveSubjectsData([Subject(title: "国語", baseTime: 1000, currentTime: 405),Subject(title: "英語", baseTime: 10000, currentTime: 5800),Subject(title: "数学", baseTime: 100000, currentTime: 40005),Subject(title: "理科", baseTime: 34456, currentTime: 5800),Subject(title: "社会", baseTime: 1000, currentTime: 405)])
-//            UserDefaults.standard.register(defaults: ["Entire" : try! PropertyListEncoder().encode(Entire(DataSaver.subjects))])
-        UserDefaults.standard.register(defaults: ["Subjects" : []])
-        DataSaver.SaveEntireData(Entire(entireBaseTime: 0, entireCurrentTime: 0))
-        DataSaver.SaveMonthData(Month.shared)
+        UserDefaults.standard.register(defaults: ["Subjects" : [],"Entire" : try! PropertyListEncoder().encode(Entire(entireBaseTime: 0, entireCurrentTime: 0)),"Month" : try! PropertyListEncoder().encode(Month.shared),"dayStudy" : [],"AtLastStudy" : try! JSONEncoder().encode(Date())])
     }
     #endif
     private func setupBottomButton() {
@@ -63,15 +59,20 @@ class StudyPageViewController: UIViewController {
             if $0.id == self.bottomTitle[0] {//New
                 let new = NewSubjectController()
                 new.delegate = self
-                let nav = UINavigationController(rootViewController: new)
-                self.present(nav, animated: true, completion: nil)
+                self.presentNavigationController(root: new)
             }else if $0.id == self.bottomTitle[1] {//Calender
-                
-            }else{//Edit
-                
+                self.presentNavigationController(root: DateViewController())
+            }else if $0.id == self.bottomTitle[2] {//Edit
+                let edit = EditViewController()
+                edit.delegate = self
+                self.presentNavigationController(root: edit)
             }
         }
         self.view.addSubview(bottomButton)
+    }
+    private func presentNavigationController<T:UIViewController>(root:T,completion:(() -> Void)? = nil) {
+        let nav = UINavigationController(rootViewController: root)
+        self.present(nav, animated: true, completion: completion)
     }
     private func setupSegment() {
         segment.addTarget(self, action: #selector(segmentSelected(_:)), for: .valueChanged)
@@ -100,8 +101,9 @@ class StudyPageViewController: UIViewController {
     }
 }
 
-extension StudyPageViewController : NewSubjectControllerDelegate {
+extension StudyPageViewController : NewSubjectControllerDelegate, EditViewControllerDelegate {
     func reloadCollectionView() {
         studyCollection.mode = studyCollection.mode
     }
 }
+

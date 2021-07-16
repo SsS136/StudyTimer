@@ -23,6 +23,11 @@
 		2342E9F2269DD79200C325A1 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9F1269DD79200C325A1 /* Subject.swift */; };
 		2342E9F4269DD7D100C325A1 /* StudyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9F3269DD7D100C325A1 /* StudyCollectionCell.swift */; };
 		2342E9F6269DEF4800C325A1 /* DataSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9F5269DEF4800C325A1 /* DataSaver.swift */; };
+		2359A03626A19C7E0080FF7F /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03526A19C7E0080FF7F /* EditViewController.swift */; };
+		2359A03826A1C1020080FF7F /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03726A1C1020080FF7F /* DateViewController.swift */; };
+		2359A03A26A1E6090080FF7F /* TotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03926A1E6090080FF7F /* TotalViewController.swift */; };
+		2359A03C26A1EB560080FF7F /* TotalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03B26A1EB560080FF7F /* TotalProgress.swift */; };
+		2359A03E26A1FB2B0080FF7F /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03D26A1FB2B0080FF7F /* DateUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +48,11 @@
 		2342E9F1269DD79200C325A1 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		2342E9F3269DD7D100C325A1 /* StudyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCollectionCell.swift; sourceTree = "<group>"; };
 		2342E9F5269DEF4800C325A1 /* DataSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSaver.swift; sourceTree = "<group>"; };
+		2359A03526A19C7E0080FF7F /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		2359A03726A1C1020080FF7F /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		2359A03926A1E6090080FF7F /* TotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewController.swift; sourceTree = "<group>"; };
+		2359A03B26A1EB560080FF7F /* TotalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalProgress.swift; sourceTree = "<group>"; };
+		2359A03D26A1FB2B0080FF7F /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		B7158255DE0B62C3C1D15537 /* Pods-StudyTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.release.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.release.xcconfig"; sourceTree = "<group>"; };
 		D1E79E55199B9B413AEE5D0C /* Pods-StudyTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.debug.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		E1AE62999836226B791CDF17 /* Pods_StudyTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,9 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				2342E9E3269DBD9F00C325A1 /* Then.swift */,
-				2342E9EF269DD44900C325A1 /* UX.swift */,
 				2342E9F1269DD79200C325A1 /* Subject.swift */,
 				2342E9F5269DEF4800C325A1 /* DataSaver.swift */,
+				2359A03D26A1FB2B0080FF7F /* DateUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -125,6 +135,8 @@
 		2342E9E8269DC26500C325A1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				2342E9EF269DD44900C325A1 /* UX.swift */,
+				2359A03B26A1EB560080FF7F /* TotalProgress.swift */,
 				2342E9EA269DC27700C325A1 /* View */,
 				2342E9E9269DC26C00C325A1 /* ViewController */,
 			);
@@ -137,6 +149,9 @@
 				230EDB17269DA0EA006F4EF4 /* StudyPageViewController.swift */,
 				2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */,
 				23226E6E269ECC0A002563AA /* NewSubjectController.swift */,
+				2359A03526A19C7E0080FF7F /* EditViewController.swift */,
+				2359A03726A1C1020080FF7F /* DateViewController.swift */,
+				2359A03926A1E6090080FF7F /* TotalViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -272,12 +287,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2359A03626A19C7E0080FF7F /* EditViewController.swift in Sources */,
 				2342E9F6269DEF4800C325A1 /* DataSaver.swift in Sources */,
+				2359A03826A1C1020080FF7F /* DateViewController.swift in Sources */,
 				2342E9F2269DD79200C325A1 /* Subject.swift in Sources */,
 				2342E9F0269DD44900C325A1 /* UX.swift in Sources */,
+				2359A03E26A1FB2B0080FF7F /* DateUtil.swift in Sources */,
 				2342E9EC269DC6EA00C325A1 /* StudyCollectionViewController.swift in Sources */,
 				2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */,
+				2359A03C26A1EB560080FF7F /* TotalProgress.swift in Sources */,
 				230EDB18269DA0EA006F4EF4 /* StudyPageViewController.swift in Sources */,
+				2359A03A26A1E6090080FF7F /* TotalViewController.swift in Sources */,
 				2342E9F4269DD7D100C325A1 /* StudyCollectionCell.swift in Sources */,
 				23226E6F269ECC0A002563AA /* NewSubjectController.swift in Sources */,
 				230EDB14269DA0EA006F4EF4 /* AppDelegate.swift in Sources */,

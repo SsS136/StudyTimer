@@ -1,40 +1,40 @@
 PODS:
+  - Eureka (5.3.3)
   - FanMenu (0.7.5):
     - Macaw
   - KYCircularProgress (1.2.1)
   - Macaw (0.9.7):
     - SWXMLHash
   - SnapKit (5.0.1)
-  - SwiftTTPageController (0.0.6)
   - SWXMLHash (5.0.1)
   - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
+  - Eureka
   - FanMenu
   - KYCircularProgress
   - SnapKit (~> 5.0.0)
-  - SwiftTTPageController
   - TextFieldEffects
 
 SPEC REPOS:
   trunk:
+    - Eureka
     - FanMenu
     - KYCircularProgress
     - Macaw
     - SnapKit
-    - SwiftTTPageController
     - SWXMLHash
     - TextFieldEffects
 
 SPEC CHECKSUMS:
+  Eureka: e6d720290c56bb23333ad1a0e020b2a98a0e9a43
   FanMenu: f26be76147954666be0b89ae6ffeb12b72167f2b
   KYCircularProgress: caa1a8d1defa2acf05d2f84ea681467fbdb6d353
   Macaw: 4a931baf9a9826b06d0d8ecf300014c962ab9d50
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftTTPageController: a6430ed29b939a01d86c60320547b49cef1eac8f
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: befa36f6fb5d47207c71c665ac5e727b5d0547da
+PODFILE CHECKSUM: 3479cb84d6d53aa09f6f1b8acfe4d7db597f7ffc
 
 COCOAPODS: 1.10.1

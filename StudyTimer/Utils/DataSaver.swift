@@ -33,63 +33,93 @@ class DataSaver {
     }
     static var subjects:[Subject]! {
         get{
-            if let data = UserDefaults.standard.data(forKey: "Subjects") {
-                do {
-                    return try PropertyListDecoder().decode(Array<Subject>.self, from: data)
-                }catch{
-                    return nil
-                }
-            }else{
-                return nil
-            }
+            return readUserDefaultsData(forKey: "Subjects")
         }
         set {
-            do {
-                UserDefaults.standard.setValue(try PropertyListEncoder().encode(newValue), forKey: "Subjects")
-                SaveEntireData(Entire(subjects))
-            }catch{
-                print("Failed to Set Subjects Data")
+            setUserDefaultsData(newValue: newValue, forKey: "Subjects") {
+                SaveEntireData(Entire(newValue))
             }
         }
     }
     static var entire:Entire! {
         get{
-            if let data = UserDefaults.standard.data(forKey: "Entire") {
-                do {
-                    return try PropertyListDecoder().decode(Entire.self, from: data)
-                }catch{
-                    return nil
-                }
-            }else{
-                return nil
-            }
+            return readUserDefaultsData(forKey: "Entire")
         }
         set{
-            do {
-                UserDefaults.standard.setValue(try PropertyListEncoder().encode(newValue), forKey: "Entire")
-            }catch{
-                print("Failed to Set Entire Data")
-            }
+            setUserDefaultsData(newValue: newValue, forKey: "Entire")
         }
     }
     static var month:Month! {
         get{
-            if let data = UserDefaults.standard.data(forKey: "Month") {
-                do {
-                    return try PropertyListDecoder().decode(Month.self, from: data)
-                }catch{
+            return readUserDefaultsData(forKey: "Month")
+        }
+        set {
+            setUserDefaultsData(newValue: newValue, forKey: "Month")
+        }
+    }
+
+    static var atLastDate:Date! {
+        get {
+            do {
+                if let data = UserDefaults.standard.data(forKey: "AtLastDate") {
+                    return try JSONDecoder().decode(Date.self, from: data)
+                }else {
+                    print("failed to set data")
                     return nil
                 }
-            }else{
+            }catch{
+                print("failed to set data")
                 return nil
             }
+            //return readUserDefaultsData(forKey: "AtLastDate")
         }
         set {
             do {
-                UserDefaults.standard.setValue(try PropertyListEncoder().encode(newValue), forKey: "Month")
+                UserDefaults.standard.setValue(try JSONEncoder().encode(newValue),forKey: "AtLastDate")
             }catch{
-                print("Failed to Set Month Data")
+                print("failed to set data")
             }
+            //setUserDefaultsData(newValue: newValue, forKey: "AtLastDate")
         }
     }
+    static var dayStudy:[Int]! {//minite
+        get {
+            return UserDefaults.standard.array(forKey: "dayStudy") as? [Int]
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "dayStudy")
+        }
+    }
+    static var dayAve:Float {//minite
+        get {
+            return Float(dayStudy.reduce(0) { $0 + $1 }) / Float(dayStudy.count)
+        }
+    }
+}
+
+fileprivate extension DataSaver {
+    
+    static func readUserDefaultsData<T:Codable>(forKey:String) -> T? {
+        if let data = UserDefaults.standard.data(forKey: forKey) {
+            do {
+                return try PropertyListDecoder().decode(T.self, from: data)
+            }catch{
+                return nil
+            }
+        }else{
+            return nil
+        }
+    }
+    
+    static func setUserDefaultsData<T:Codable>(newValue:T,forKey:String,completion: (() -> Void)? = nil) {
+        do {
+            UserDefaults.standard.setValue(try PropertyListEncoder().encode(newValue), forKey: forKey)
+            if let com = completion {
+                com()
+            }
+        }catch{
+            print("Failed to Set Month Data")
+        }
+    }
+    
 }

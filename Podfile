@@ -7,8 +7,8 @@ target 'StudyTimer' do
 
   # Pods for StudyTimer
   pod 'FanMenu'
-  pod 'SwiftTTPageController'
   pod 'SnapKit', '~> 5.0.0'
   pod 'KYCircularProgress'
   pod 'TextFieldEffects'
+  pod 'Eureka'
 end
