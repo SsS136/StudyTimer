@@ -74,6 +74,9 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
     }
     func setupBlank() {
         self.backgroundColor = .clear
+        self.subviews.forEach {
+            $0.isHidden = true
+        }
     }
 }
 fileprivate class StudyStateView : UIView, TimeConverter {

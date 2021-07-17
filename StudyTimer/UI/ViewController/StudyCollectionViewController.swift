@@ -68,6 +68,7 @@ class StudyCollectionViewController : UIViewController {
     }
 }
 extension StudyCollectionViewController : UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
             return CGSize(width: view.bounds.width - 40, height: 270)
@@ -75,6 +76,7 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
             return CGSize(width: view.bounds.width - 40, height: 65)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return combine.count + 1
     }
@@ -89,6 +91,7 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
             cell.layer.shadowRadius = 4
         }else if indexPath.row == combine.count{
             cell.setupBlank()
+            
         }else{
             let gesture = StudyTimerLongPress(target: self, action:#selector(deleteRow(_:)))
             gesture.at = indexPath
