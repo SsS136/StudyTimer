@@ -10,7 +10,7 @@ import Eureka
 protocol EditViewControllerDelegate : AnyObject {
     func reloadCollectionView()
 }
-class EditViewController : FormViewController, TimeConverter {
+class EditViewController : FormViewController, TimeConverter, ErrorAlert {
     
     private let subjects = DataSaver.subjects.map { $0.title }
     
@@ -42,12 +42,6 @@ class EditViewController : FormViewController, TimeConverter {
                 $0.title = "分"
                 $0.placeholder = "分を入力してください"
             }
-    }
-    private func showErrorAlert(title:String,handler: ((UIAlertAction) -> Void)? = nil) {
-        let alert = UIAlertController(title: "", message: title, preferredStyle:.alert)
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: handler)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
     }
     @objc private func recordSubjectData() {
         

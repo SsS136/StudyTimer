@@ -13,7 +13,7 @@ protocol NewSubjectControllerDelegate : AnyObject {
     func reloadCollectionView()
 }
 
-class NewSubjectController : FormViewController, TimeConverter {
+class NewSubjectController : FormViewController, TimeConverter, ErrorAlert {
     
     weak var delegate:NewSubjectControllerDelegate!
     
@@ -48,12 +48,7 @@ class NewSubjectController : FormViewController, TimeConverter {
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
-    private func showErrorAlert(title:String) {
-        let alert = UIAlertController(title: "", message: title, preferredStyle:.alert)
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
-    }
+
     @objc func saveSubjectData() {
         if DataSaver.subjects == nil {
             DataSaver.subjects = []

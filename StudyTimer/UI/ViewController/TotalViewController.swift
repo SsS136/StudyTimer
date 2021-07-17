@@ -8,14 +8,19 @@
 import UIKit
 import Eureka
 
-class TotalViewController : FormViewController, TimeConverter {
+class TotalViewController : FormViewController, TimeConverter, ErrorAlert {
     
     private var leftBarButton:UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItems()
-        guard DataSaver.atLastDate != nil else { showErrorAlert(title: "最終到達日程を設定してください"); return }
+        guard DataSaver.atLastDate != nil else {
+            showErrorAlert(title: "最終到達日程を設定してください") { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            return
+        }
         form +++ Section("")
             <<< TotalProgressRow() {
                 $0.cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -46,14 +51,7 @@ class TotalViewController : FormViewController, TimeConverter {
                 $0.value = convertMiniteToHour(aveTime)
             }
     }
-    private func showErrorAlert(title:String) {
-        let alert = UIAlertController(title: "", message: title, preferredStyle:.alert)
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
-            self.dismiss(animated: true, completion: nil)
-        })
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
-    }
+
     private func setupNavigationBarItems() {
         leftBarButton = UIBarButtonItem(title: "キャンセル", style: .plain, target: self, action: #selector(dismissController))
         self.navigationItem.title = "詳細"
@@ -63,5 +61,14 @@ class TotalViewController : FormViewController, TimeConverter {
     }
     @objc func dismissController() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+protocol ErrorAlert where Self:UIViewController {}
+extension ErrorAlert {
+    func showErrorAlert(title:String,handler: ((UIAlertAction) -> Void)? = nil) {
+        let alert = UIAlertController(title: "", message: title, preferredStyle:.alert)
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: handler)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
 }
