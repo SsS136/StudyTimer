@@ -79,20 +79,59 @@ class DataSaver {
             }catch{
                 print("failed to set data")
             }
-            //setUserDefaultsData(newValue: newValue, forKey: "AtLastDate")
         }
     }
-    static var dayStudy:[Int]! {//minite
+    static var dayStudy: [Subject:[String:[Int]]]! {//minite
+        //example {Subject Object : [2021 1/1 : [100,1000],2021 1/2 : [111,4333,1322]] }
         get {
-            return UserDefaults.standard.array(forKey: "dayStudy") as? [Int]
+            return readUserDefaultsData(forKey: "dayStudy")
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "dayStudy")
+            setUserDefaultsData(newValue: newValue, forKey: "dayStudy")
         }
+    }
+    static var today:String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMM", options: 0, locale: Locale(identifier: "ja_JP"))
+        print(formatter.string(from: Date()))
+        return formatter.string(from: Date())
     }
     static var dayAve:Float {//minite
         get {
-            return Float(dayStudy.reduce(0) { $0 + $1 }) / Float(dayStudy.count)
+            if dayStudy == nil { dayStudy = [:] }
+            guard dayStudy.count != 0 else { return 0 }
+            let total = dayStudy.map {(key,value) in
+                value.map { (key,value) in
+                    value.reduce(0) { $0 + $1 }
+                }
+                .reduce(0) { $0 + $1 }
+            }
+            .reduce(0) { $0 + $1 }
+            let count = dayStudy.map {(key,value) in
+                value.count
+            }
+            let dayCount = count.max() ?? 1 == 0 ? 1 : count.max() ?? 1
+            print("dayAve:",total,dayCount)
+            return Float(total) / Float(dayCount)
+        }
+    }
+    static func convertMiniteToHour(_ minite:Int) -> String {
+        let hours = Float(minite) / Float(60)
+        guard hours > 1 else {
+            let hour = floor(hours)
+            guard hours - hour != 0 else {
+                return "0分"
+            }
+            let minite = 60 * (hours - hour)
+            return "\(Int(minite))分"
+        }
+        if hours < 100 {
+            let hour = floor(hours)
+            let minite = round((hours - hour) * 60)
+            return "\(Int(hour))時間\(Int(minite))分"
+        }else{
+            print((Int(round(hours))))
+            return "\(Int(round(hours)))時間"
         }
     }
 }

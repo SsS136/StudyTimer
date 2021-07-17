@@ -24,15 +24,19 @@ class NewSubjectController : FormViewController, TimeConverter {
         super.viewDidLoad()
         self.view.backgroundColor = .dynamicDark
         setupNavigationBarItems()
-        form +++ Section("編集")
+        form +++ Section("")
             <<< TextRow(){ row in
                 row.title = "教科"
+                row.placeholder = "教科を入力してください"
             }
+            +++ Section("目標時間設定")
             <<< PhoneRow(){
                 $0.title = "時間"
+                $0.placeholder = "時間を入力してください"
             }
             <<< PhoneRow() {
                 $0.title = "分"
+                $0.placeholder = "分を入力してください"
             }
     }
     private func setupNavigationBarItems() {

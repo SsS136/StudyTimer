@@ -23,6 +23,7 @@ class TotalViewController : FormViewController, TimeConverter {
                 $0.cell.layer.shadowOpacity = 0.4
                 $0.cell.layer.shadowRadius = 4
                 $0.cell.backgroundColor = $0.cell.superview?.backgroundColor
+                $0.cell.selectionStyle = .none
 
             }
             <<< LabelRow() {
@@ -38,7 +39,7 @@ class TotalViewController : FormViewController, TimeConverter {
                 $0.value = DateUtils.stringFromDate(date: DataSaver.atLastDate, format: "yyyy年MM月dd日")
             }
             <<< LabelRow() {
-                $0.title = "目標達成までの平均勉強時間"
+                $0.title = "最終到達日程までの1日勉強時間"
                 let elapsedDays = Calendar.current.dateComponents([.day], from: Date(), to: DataSaver.atLastDate).day!
                 let mustStudy = DataSaver.entire.entireRemainingTime
                 let aveTime = Int(Float(mustStudy) / Float(elapsedDays))
@@ -47,7 +48,9 @@ class TotalViewController : FormViewController, TimeConverter {
     }
     private func showErrorAlert(title:String) {
         let alert = UIAlertController(title: "", message: title, preferredStyle:.alert)
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+            self.dismiss(animated: true, completion: nil)
+        })
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }

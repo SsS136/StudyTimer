@@ -46,7 +46,7 @@ class EditViewController : FormViewController, TimeConverter {
     @objc private func recordSubjectData() {
         
         if DataSaver.dayStudy == nil {
-            DataSaver.dayStudy = []
+            DataSaver.dayStudy = [:]
         }
 
         guard let subject = form.allRows[0].baseValue as? String else { showErrorAlert(title: "教科が正しく入力されていません"); return }
@@ -60,7 +60,10 @@ class EditViewController : FormViewController, TimeConverter {
         let totalMin = convertHourToMinite(hour: hours, minite: minites)
         DataSaver.subjects[index].title = subject
         DataSaver.subjects[index].currentTime += totalMin
-        DataSaver.dayStudy.append(totalMin)
+        if DataSaver.dayStudy[DataSaver.subjects[index], default: [:]][DataSaver.today] == nil {
+            DataSaver.dayStudy[DataSaver.subjects[index], default: [:]][DataSaver.today] = []
+        }
+        DataSaver.dayStudy[DataSaver.subjects[index], default: [:]][DataSaver.today]?.append(totalMin)
         
         self.delegate.reloadCollectionView()
         dismissController()

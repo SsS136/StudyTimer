@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Subject : Codable {
+struct Subject : Codable, Hashable {
     var title:String
     var baseTime:Int //minite
     var currentTime:Int //minite

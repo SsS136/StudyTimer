@@ -90,6 +90,9 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
         }else if indexPath.row == combine.count{
             cell.setupBlank()
         }else{
+            let gesture = StudyTimerLongPress(target: self, action:#selector(deleteRow(_:)))
+            gesture.at = indexPath
+            cell.addGestureRecognizer(gesture)
             cell.setupCell(subjects[indexPath.row - 1], mode: mode)
             cell.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             cell.layer.shadowColor = UIColor.darkGray.cgColor
@@ -116,5 +119,43 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
         if indexPath.row == 0 {
             presentNavigationController(root: TotalViewController())
         }
+    }
+}
+
+extension StudyCollectionViewController {
+    @objc private func deleteRow(_ sender:StudyTimerLongPress) {
+        switch sender.state {
+        case .began:
+            let alert = UIAlertController(title: nil, message: "この勉強記録を削除しますか？", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let action = UIAlertAction(title: "はい", style: .destructive) { _ in
+                print(DataSaver.subjects.count,sender.at)
+                if let sub = self.subjects[safe:sender.at.row - 1] {
+                    DataSaver.dayStudy[sub] = nil
+                    DataSaver.subjects.remove(at: sender.at.row - 1)
+                    self.collectionView.performBatchUpdates({
+                        self.collectionView.deleteItems(at: [sender.at])
+                        self.collectionView.reloadSections(IndexSet(integer: 0))
+                    }, completion: nil)
+                }else{
+                    fatalError("Error")
+                }
+            }
+            alert.addAction(cancel)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+}
+
+class StudyTimerLongPress : UILongPressGestureRecognizer {
+    var at:IndexPath!
+}
+extension Array {
+    subscript (safe index: Index) -> Element? {
+        //indexが配列内なら要素を返し、配列外ならnilを返す（三項演算子）
+        return indices.contains(index) ? self[index] : nil
     }
 }
