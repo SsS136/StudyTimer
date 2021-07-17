@@ -7,6 +7,8 @@
 
 import UIKit
 
+internal typealias DayStudyData = [Subject:[String:[Int]]]
+
 class DataSaver {
     static func SaveEntireData(_ entire: Entire) {
         do {
@@ -81,7 +83,7 @@ class DataSaver {
             }
         }
     }
-    static var dayStudy: [Subject:[String:[Int]]]! {//minite
+    static var dayStudy: DayStudyData! {//minite
         //example {Subject Object : [2021 1/1 : [100,1000],2021 1/2 : [111,4333,1322]] }
         get {
             return readUserDefaultsData(forKey: "dayStudy")
@@ -107,12 +109,19 @@ class DataSaver {
                 .reduce(0) { $0 + $1 }
             }
             .reduce(0) { $0 + $1 }
-            let count = dayStudy.map {(key,value) in
-                value.count
-            }
-            let dayCount = count.max() ?? 1 == 0 ? 1 : count.max() ?? 1
-            print("dayAve:",total,dayCount)
-            return Float(total) / Float(dayCount)
+            
+            let count = Array(
+                Set(
+                    dayStudy.map {(key,value) in
+                        value.map { (key2,value2) in
+                            key2
+                        }
+                    }
+                    .flatMap {$0}
+                )
+            )
+            .count
+            return Float(total) / Float(count)
         }
     }
     static func convertMiniteToHour(_ minite:Int) -> String {

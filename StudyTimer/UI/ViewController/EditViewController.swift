@@ -22,6 +22,12 @@ class EditViewController : FormViewController, TimeConverter {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItems()
+        guard subjects.count != 0 else {
+            showErrorAlert(title: "教科がありません") {_ in 
+                self.dismiss(animated: true, completion: nil)
+            }
+            return
+        }
         form +++ Section("編集")
             <<< PickerRow<String>(){ row in
                 row.title = "教科"
@@ -37,9 +43,9 @@ class EditViewController : FormViewController, TimeConverter {
                 $0.placeholder = "分を入力してください"
             }
     }
-    private func showErrorAlert(title:String) {
+    private func showErrorAlert(title:String,handler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: "", message: title, preferredStyle:.alert)
-        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: handler)
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }

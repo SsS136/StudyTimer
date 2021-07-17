@@ -9,6 +9,8 @@ import UIKit
 import Eureka
 import KYCircularProgress
 
+//月平均もだす
+
 public class TotalProgressCell: Cell<Bool>, CellType, TimeConverter {
     
     let hstack = HStack().then {

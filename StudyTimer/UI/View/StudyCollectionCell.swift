@@ -27,7 +27,9 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
         fatalError("init(coder:) has not been implemented")
     }
     func setupCell(_ subject:Subject,mode:StudyPageViewController.Mode) {
-        
+        self.subviews.forEach {
+            $0.isHidden = true
+        }
         self.subject = subject
         self.mode = .subject
         self.backgroundColor = .whiteBlack
