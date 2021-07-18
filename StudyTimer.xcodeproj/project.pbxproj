@@ -28,6 +28,7 @@
 		2359A03A26A1E6090080FF7F /* TotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03926A1E6090080FF7F /* TotalViewController.swift */; };
 		2359A03C26A1EB560080FF7F /* TotalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03B26A1EB560080FF7F /* TotalProgress.swift */; };
 		2359A03E26A1FB2B0080FF7F /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03D26A1FB2B0080FF7F /* DateUtil.swift */; };
+		239F5B7326A4047600120BDA /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239F5B7226A4047600120BDA /* UIStackView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		2359A03926A1E6090080FF7F /* TotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewController.swift; sourceTree = "<group>"; };
 		2359A03B26A1EB560080FF7F /* TotalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalProgress.swift; sourceTree = "<group>"; };
 		2359A03D26A1FB2B0080FF7F /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		239F5B7226A4047600120BDA /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		B7158255DE0B62C3C1D15537 /* Pods-StudyTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.release.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.release.xcconfig"; sourceTree = "<group>"; };
 		D1E79E55199B9B413AEE5D0C /* Pods-StudyTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.debug.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		E1AE62999836226B791CDF17 /* Pods_StudyTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 			children = (
 				2342E9E6269DC23100C325A1 /* CGRect+.swift */,
 				2342E9ED269DD39500C325A1 /* UIColor+.swift */,
+				239F5B7226A4047600120BDA /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				2342E9F0269DD44900C325A1 /* UX.swift in Sources */,
 				2359A03E26A1FB2B0080FF7F /* DateUtil.swift in Sources */,
 				2342E9EC269DC6EA00C325A1 /* StudyCollectionViewController.swift in Sources */,
+				239F5B7326A4047600120BDA /* UIStackView+.swift in Sources */,
 				2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */,
 				2359A03C26A1EB560080FF7F /* TotalProgress.swift in Sources */,
 				230EDB18269DA0EA006F4EF4 /* StudyPageViewController.swift in Sources */,

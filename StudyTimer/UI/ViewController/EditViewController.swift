@@ -22,6 +22,7 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItems()
+        
         guard subjects.count != 0 else {
             showErrorAlert(title: "教科がありません") {_ in 
                 self.dismiss(animated: true, completion: nil)
@@ -48,7 +49,8 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         if DataSaver.dayStudy == nil {
             DataSaver.dayStudy = [:]
         }
-
+        
+        //detect some error
         guard let subject = form.allRows[0].baseValue as? String else { showErrorAlert(title: "教科が正しく入力されていません"); return }
         guard let hours = NumberFormatter().number(from: form.allRows[1].baseValue as? String ?? "0") as? Int else { showErrorAlert(title: "時間が正しく入力されていません"); return }
         guard let minites = NumberFormatter().number(from: form.allRows[2].baseValue as? String ?? "0") as? Int else { showErrorAlert(title: "分が正しく入力されていません" ); return }
@@ -58,12 +60,17 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         guard convertHourToMinite(hour: hours, minite: minites) + DataSaver.subjects[index].currentTime <= DataSaver.subjects[index].baseTime else { showErrorAlert(title: "目標勉強時間以上の勉強時間を設定することはできません"); return }
 
         let totalMin = convertHourToMinite(hour: hours, minite: minites)
+        
+        //reload saved subjects data
         DataSaver.subjects[index].title = subject
         DataSaver.subjects[index].currentTime += totalMin
-        if DataSaver.dayStudy[DataSaver.subjects[index], default: [:]][DataSaver.today] == nil {
-            DataSaver.dayStudy[DataSaver.subjects[index], default: [:]][DataSaver.today] = []
+        
+        if DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][DataSaver.today] == nil {
+            DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]].updateValue([], forKey: DataSaver.today)
         }
-        DataSaver.dayStudy[DataSaver.subjects[index], default: [:]][DataSaver.today]?.append(totalMin)
+        
+        //add Todays study record
+        DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][DataSaver.today]?.append(totalMin)
         
         self.delegate.reloadCollectionView()
         dismissController()

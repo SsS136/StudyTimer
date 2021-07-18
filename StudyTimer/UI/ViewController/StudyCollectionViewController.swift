@@ -132,9 +132,8 @@ extension StudyCollectionViewController {
             let alert = UIAlertController(title: nil, message: "この勉強記録を削除しますか？", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let action = UIAlertAction(title: "はい", style: .destructive) { _ in
-                print(DataSaver.subjects.count,sender.at)
                 if let sub = self.subjects[safe:sender.at.row - 1] {
-                    DataSaver.dayStudy[sub] = nil
+                    DataSaver.dayStudy[sub.title] = nil
                     DataSaver.subjects.remove(at: sender.at.row - 1)
                     self.collectionView.performBatchUpdates({
                         self.collectionView.deleteItems(at: [sender.at])

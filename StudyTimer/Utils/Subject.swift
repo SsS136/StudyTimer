@@ -84,13 +84,11 @@ extension TimeConverter {
             let minite = round((hours - hour) * 60)
             return "\(Int(hour))時間\(Int(minite))分"
         }else{
-            print((Int(round(hours))))
             return "\(Int(round(hours)))時間"
         }
     }
     func convertHourToMinite(hour:Int,minite:Int) -> Int {
         let hourToMinite = hour * 60
-        print(hourToMinite + minite)
         return hourToMinite + minite
     }
 }

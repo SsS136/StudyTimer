@@ -7,7 +7,7 @@
 
 import UIKit
 
-internal typealias DayStudyData = [Subject:[String:[Int]]]
+internal typealias DayStudyData = [String:[String:[Int]]]
 
 class DataSaver {
     static func SaveEntireData(_ entire: Entire) {
@@ -95,7 +95,6 @@ class DataSaver {
     static var today:String {
         let formatter = DateFormatter()
         formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMM", options: 0, locale: Locale(identifier: "ja_JP"))
-        print(formatter.string(from: Date()))
         return formatter.string(from: Date())
     }
     static var dayAve:Float {//minite
@@ -139,7 +138,6 @@ class DataSaver {
             let minite = round((hours - hour) * 60)
             return "\(Int(hour))時間\(Int(minite))分"
         }else{
-            print((Int(round(hours))))
             return "\(Int(round(hours)))時間"
         }
     }

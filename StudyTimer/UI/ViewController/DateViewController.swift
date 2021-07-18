@@ -21,7 +21,6 @@ class DateViewController : FormViewController {
                 $0.title = "最終到達日時を設定する"
                 $0.value = DataSaver.atLastDate
             }.onChange {
-                print($0.value!)
                 DataSaver.atLastDate = $0.value!
             }
         

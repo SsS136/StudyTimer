@@ -3,4 +3,69 @@
    uuid = "333EC2BB-DC2F-458F-AC20-B132D6046282"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F2C83730-DC06-42F4-9446-E05BB6DF4BE0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StudyTimer/UI/ViewController/DateViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F2C83730-DC06-42F4-9446-E05BB6DF4BE0 - 2cc57a0f45e51856"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StudyTimer.DateViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "StudyTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shibuya/Desktop/StudyTimer/StudyTimer/UI/ViewController/DateViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "F2C83730-DC06-42F4-9446-E05BB6DF4BE0 - 134b60dd78a204f3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Eureka.DateRow) -&gt; () in StudyTimer.DateViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "StudyTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shibuya/Desktop/StudyTimer/StudyTimer/UI/ViewController/DateViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "F2C83730-DC06-42F4-9446-E05BB6DF4BE0 - 4daf3de0d707f0cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Eureka.DateRow) -&gt; () in StudyTimer.DateViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "StudyTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shibuya/Desktop/StudyTimer/StudyTimer/UI/ViewController/DateViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "272">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
