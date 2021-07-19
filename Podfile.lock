@@ -7,14 +7,12 @@ PODS:
     - SWXMLHash
   - SnapKit (5.0.1)
   - SWXMLHash (5.0.1)
-  - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
   - Eureka
   - FanMenu
   - KYCircularProgress
   - SnapKit (~> 5.0.0)
-  - TextFieldEffects
 
 SPEC REPOS:
   trunk:
@@ -24,7 +22,6 @@ SPEC REPOS:
     - Macaw
     - SnapKit
     - SWXMLHash
-    - TextFieldEffects
 
 SPEC CHECKSUMS:
   Eureka: e6d720290c56bb23333ad1a0e020b2a98a0e9a43
@@ -33,8 +30,7 @@ SPEC CHECKSUMS:
   Macaw: 4a931baf9a9826b06d0d8ecf300014c962ab9d50
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
-  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 3479cb84d6d53aa09f6f1b8acfe4d7db597f7ffc
+PODFILE CHECKSUM: 7426ac5ee7e1f87b0141070eb2b7403094b62ba4
 
 COCOAPODS: 1.10.1

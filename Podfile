@@ -9,6 +9,5 @@ target 'StudyTimer' do
   pod 'FanMenu'
   pod 'SnapKit', '~> 5.0.0'
   pod 'KYCircularProgress'
-  pod 'TextFieldEffects'
   pod 'Eureka'
 end

@@ -56,7 +56,7 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
         self.addSubview(largeVstack)
         let total = StateView(entire: entire, mode: mode, onText: "トータル")
         
-        let month = StateView(month: Month.shared, mode: mode, onText: "\(Calendar.current.component(.month, from: Date()))月")
+        let month = StateView(month: DataSaver.month, mode: mode, onText: "\(Calendar.current.component(.month, from: Date()))月")
         largeVstack.addArrangedSubViews(views: [total,month])
         largeVstack.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -81,6 +81,8 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
         }
     }
 }
+
+//MARK: StudyStateView
 fileprivate class StudyStateView : UIView, TimeConverter {
     let vstack = VStack(frame: .zero).then {
         $0.alignment = .center
@@ -193,7 +195,7 @@ class CellLabel : UILabel {
     }
 }
 
-
+//MARK: StateView
 fileprivate class StateView : UIView, TimeConverter {
     
     var entire:Entire!
@@ -306,7 +308,6 @@ fileprivate class StateView : UIView, TimeConverter {
 
             circle.set(progress: Double(self.month.monthProgress), duration: 0.1)
             percent.text = "\(Int(self.month.monthProgress * 100))%"
-            percent.text = "\(Int(self.entire.entireProgress * 100))%"
             hstack.addArrangedSubViews(views: [vstack,circle])
             vstack.snp.makeConstraints {
                 $0.width.equalToSuperview().multipliedBy(0.48)
@@ -324,6 +325,7 @@ fileprivate class StateView : UIView, TimeConverter {
                     $0.height.equalTo(20)
                 }
             }
+            
             switch mode {
             case .remaining:
                 remain.text = onText + "残り"

@@ -35,6 +35,10 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
                 row.options = subjects
                 row.value = subjects[0]
             }
+            <<< DateRow() {
+                $0.title = "日時"
+                $0.value = Date()
+            }
             <<< PhoneRow(){
                 $0.title = "時間"
                 $0.placeholder = "時間を入力してください"
@@ -49,11 +53,11 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         if DataSaver.dayStudy == nil {
             DataSaver.dayStudy = [:]
         }
-        
         //detect some error
         guard let subject = form.allRows[0].baseValue as? String else { showErrorAlert(title: "教科が正しく入力されていません"); return }
-        guard let hours = NumberFormatter().number(from: form.allRows[1].baseValue as? String ?? "0") as? Int else { showErrorAlert(title: "時間が正しく入力されていません"); return }
-        guard let minites = NumberFormatter().number(from: form.allRows[2].baseValue as? String ?? "0") as? Int else { showErrorAlert(title: "分が正しく入力されていません" ); return }
+        guard let date = form.allRows[1].baseValue as? Date else { showErrorAlert(title: "日にちが正しく入力されていません"); return }
+        guard let hours = NumberFormatter().number(from: form.allRows[2].baseValue as? String ?? "0") as? Int else { showErrorAlert(title: "時間が正しく入力されていません"); return }
+        guard let minites = NumberFormatter().number(from: form.allRows[3].baseValue as? String ?? "0") as? Int else { showErrorAlert(title: "分が正しく入力されていません" ); return }
         guard let index = subjects.firstIndex(of: subject) else { showErrorAlert(title: "データがありません"); return }
         guard (hours != 0 || minites != 0) else { showErrorAlert(title: "勉強時間を正しく入力してください"); return }
         guard minites < 60 else { showErrorAlert(title: "分は60未満に設定してください"); return }
@@ -65,12 +69,18 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         DataSaver.subjects[index].title = subject
         DataSaver.subjects[index].currentTime += totalMin
         
-        if DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][DataSaver.today] == nil {
-            DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]].updateValue([], forKey: DataSaver.today)
+        let formatter = DateFormatter()
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMM", options: 0, locale: Locale(identifier: "ja_JP"))
+        let dateString = formatter.string(from: date)
+        
+        if DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][dateString] == nil {
+            DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]].updateValue([], forKey: dateString)
         }
         
         //add Todays study record
-        DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][DataSaver.today]?.append(totalMin)
+        DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][dateString]?.append(totalMin)
+        
+        monthDataSetter()
         
         self.delegate.reloadCollectionView()
         dismissController()

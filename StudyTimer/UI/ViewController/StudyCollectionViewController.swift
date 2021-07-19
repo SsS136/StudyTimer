@@ -125,7 +125,7 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
     }
 }
 
-extension StudyCollectionViewController {
+extension StudyCollectionViewController : TimeConverter {
     @objc private func deleteRow(_ sender:StudyTimerLongPress) {
         switch sender.state {
         case .began:
@@ -135,6 +135,7 @@ extension StudyCollectionViewController {
                 if let sub = self.subjects[safe:sender.at.row - 1] {
                     DataSaver.dayStudy[sub.title] = nil
                     DataSaver.subjects.remove(at: sender.at.row - 1)
+                    self.monthDataSetter()
                     self.collectionView.performBatchUpdates({
                         self.collectionView.deleteItems(at: [sender.at])
                         self.collectionView.reloadSections(IndexSet(integer: 0))

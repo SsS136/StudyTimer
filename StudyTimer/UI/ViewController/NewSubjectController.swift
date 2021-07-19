@@ -7,7 +7,6 @@
 
 import UIKit
 import Eureka
-import TextFieldEffects
 
 protocol NewSubjectControllerDelegate : AnyObject {
     func reloadCollectionView()

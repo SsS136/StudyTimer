@@ -11,7 +11,7 @@ import Macaw
 import SnapKit
 import KYCircularProgress
 
-class StudyPageViewController: UIViewController {
+class StudyPageViewController: UIViewController, TimeConverter {
     enum Mode {
         case remaining
         case current
@@ -40,11 +40,34 @@ class StudyPageViewController: UIViewController {
             setupBottomButton()
         }
     }
-    #if DEBUG
-    private func testSaveData() {
-        UserDefaults.standard.register(defaults: ["Subjects" : [],"Entire" : try! PropertyListEncoder().encode(Entire(entireBaseTime: 0, entireCurrentTime: 0)),"Month" : try! PropertyListEncoder().encode(Month.shared),"dayStudy" : [],"AtLastStudy" : try! JSONEncoder().encode(Date())])
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        detectMonthChange()
     }
-    #endif
+    private func testSaveData() {
+        UserDefaults.standard.register(defaults: ["Subjects" : [],"Entire" : try! PropertyListEncoder().encode(Entire(entireBaseTime: 0, entireCurrentTime: 0)),"Month" : try! PropertyListEncoder().encode(Month(monthBaseTime: 0, monthCurrentTime: 0)),"dayStudy" : [],"AtLastStudy" : try! JSONEncoder().encode(Date()),"detect" : monthExtracter(date: DataSaver.today)])
+    }
+
+    private func detectMonthChange() {
+        if UserDefaults.standard.integer(forKey: "detect") != monthExtracter(date: DataSaver.today) {
+            let alert = UIAlertController(title: "月が変わりました！", message: "今月の目標を設定しましょう！", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in                let date = DateViewController()
+                date.delegate = self
+                self.presentNavigationController(root: date)
+            })
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if DataSaver.month == nil || DataSaver.month.monthBaseTime == 0 {
+            let alert = UIAlertController(title: nil, message: "まずは今月の目標を設定しましょう！", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in            let date = DateViewController()
+                date.delegate = self
+                self.presentNavigationController(root: date)
+            })
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     private func setupBottomButton() {
         bottomButton.button = FanMenuButton(id: "normal", image: UIImage(systemName: "text.book.closed"), color: Color(val: 0x7C93FE))
         bottomButton.items = [
@@ -61,7 +84,9 @@ class StudyPageViewController: UIViewController {
                 new.delegate = self
                 self.presentNavigationController(root: new)
             }else if $0.id == self.bottomTitle[1] {//Calender
-                self.presentNavigationController(root: DateViewController())
+                let date = DateViewController()
+                date.delegate = self
+                self.presentNavigationController(root: date)
             }else if $0.id == self.bottomTitle[2] {//Edit
                 let edit = EditViewController()
                 edit.delegate = self
@@ -101,9 +126,8 @@ class StudyPageViewController: UIViewController {
     }
 }
 
-extension StudyPageViewController : NewSubjectControllerDelegate, EditViewControllerDelegate {
+extension StudyPageViewController : NewSubjectControllerDelegate, EditViewControllerDelegate, DateViewControllerDelegate {
     func reloadCollectionView() {
         studyCollection.mode = studyCollection.mode
     }
 }
-

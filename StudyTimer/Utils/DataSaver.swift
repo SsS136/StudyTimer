@@ -7,9 +7,16 @@
 
 import UIKit
 
-internal typealias DayStudyData = [String:[String:[Int]]]
+typealias SubjectTitle = String
+typealias DateString = String
 
-class DataSaver {
+
+///[String (refering to subject) : [String (refering to Date):[Int (refering to minite)]]]
+/// This type refers to the amount of study time per day for each subject
+typealias DayStudyData = [SubjectTitle:[DateString:[Int]]]
+
+
+class DataSaver : TimeConverter {
     static func SaveEntireData(_ entire: Entire) {
         do {
             UserDefaults.standard.setValue(try PropertyListEncoder().encode(entire), forKey: "Entire")
@@ -123,7 +130,7 @@ class DataSaver {
             return Float(total) / Float(count)
         }
     }
-    static func convertMiniteToHour(_ minite:Int) -> String {
+    private static func convertMiniteToHour(_ minite:Int) -> String {
         let hours = Float(minite) / Float(60)
         guard hours > 1 else {
             let hour = floor(hours)
