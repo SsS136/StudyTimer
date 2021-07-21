@@ -121,7 +121,11 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             presentNavigationController(root: TotalViewController())
+            return
         }
+        let sub = SubjectDetailViewController()
+        sub.subjectTitle = subjects[indexPath.row - 1].title
+        presentNavigationController(root: sub)
     }
 }
 

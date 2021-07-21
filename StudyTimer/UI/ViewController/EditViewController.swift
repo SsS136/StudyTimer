@@ -78,7 +78,7 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         }
         
         //add Todays study record
-        DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][dateString]?.append(totalMin)
+        DataSaver.dayStudy[DataSaver.subjects[index].title, default: [:]][dateString]?.insert(totalMin, at: 0)
         
         monthDataSetter()
         

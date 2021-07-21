@@ -45,10 +45,7 @@ class TotalViewController : FormViewController, TimeConverter, ErrorAlert {
             }
             <<< LabelRow() {
                 $0.title = "最終到達日程までの1日勉強時間"
-                let elapsedDays = Calendar.current.dateComponents([.day], from: Date(), to: DataSaver.atLastDate).day!
-                let mustStudy = DataSaver.entire.entireRemainingTime
-                let aveTime = Int(Float(mustStudy) / Float(elapsedDays))
-                $0.value = convertMiniteToHour(aveTime)
+                $0.value = studyTimePerDayUntilTheLastDateOfArrival(remainingTime: DataSaver.entire.entireRemainingTime)
             }
     }
 
@@ -63,6 +60,7 @@ class TotalViewController : FormViewController, TimeConverter, ErrorAlert {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
 protocol ErrorAlert where Self:UIViewController {}
 extension ErrorAlert {
     func showErrorAlert(title:String,handler: ((UIAlertAction) -> Void)? = nil) {

@@ -53,6 +53,7 @@ class DateViewController : FormViewController, ErrorAlert, TimeConverter {
         self.dismiss(animated: true, completion: nil)
     }
     @objc private func saveData() {
+        
         let from = (form.allRows[1].baseValue ?? "0") as! String
         let fromM = (form.allRows[2].baseValue ?? "0") as! String
         guard let date = form.allRows[0].baseValue as? Date else { showErrorAlert(title: "日付が正しく入力されていません"); return }

@@ -16,6 +16,7 @@ typealias DateString = String
 typealias DayStudyData = [SubjectTitle:[DateString:[Int]]]
 
 
+///class for storing many study data in UserDefaults.
 class DataSaver : TimeConverter {
     static func SaveEntireData(_ entire: Entire) {
         do {
@@ -90,6 +91,8 @@ class DataSaver : TimeConverter {
             }
         }
     }
+    ///DayStudyData = [String:[String:[Int]]]
+    ///[String (refering to subject) : [String (refering to Date):[Int (refering to minite)]]]
     static var dayStudy: DayStudyData! {//minite
         //example {Subject Object : [2021 1/1 : [100,1000],2021 1/2 : [111,4333,1322]] }
         get {
@@ -129,6 +132,14 @@ class DataSaver : TimeConverter {
             .count
             return Float(total) / Float(count)
         }
+    }
+    static func subjectDayAverage(dayStudy:[Dictionary<DateString, [Int]>.Element]) -> Int {
+        let total = dayStudy.map {(key,value) in
+            value.reduce(0) { $0 + $1 }
+        }.reduce(0) { $0 + $1 }
+        let count = dayStudy.count
+        guard count != 0 else { return 0 }
+        return Int(Float(total) / Float(count))
     }
     private static func convertMiniteToHour(_ minite:Int) -> String {
         let hours = Float(minite) / Float(60)

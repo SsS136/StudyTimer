@@ -51,7 +51,9 @@ class StudyPageViewController: UIViewController, TimeConverter {
     private func detectMonthChange() {
         if UserDefaults.standard.integer(forKey: "detect") != monthExtracter(date: DataSaver.today) {
             let alert = UIAlertController(title: "月が変わりました！", message: "今月の目標を設定しましょう！", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in                let date = DateViewController()
+            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                DataSaver.month = Month(monthBaseTime: 0, monthCurrentTime: 0)
+                let date = DateViewController()
                 date.delegate = self
                 self.presentNavigationController(root: date)
             })

@@ -61,4 +61,9 @@ extension TimeConverter {
         
         return monSum
     }
+    func studyTimePerDayUntilTheLastDateOfArrival(remainingTime:Int) -> String {
+        let elapsedDays = Calendar.current.dateComponents([.day], from: Date(), to: DataSaver.atLastDate).day!
+        let aveTime = Int(Float(remainingTime) / Float(elapsedDays))
+        return convertMiniteToHour(aveTime)
+    }
 }
