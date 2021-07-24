@@ -12,10 +12,12 @@ import SnapKit
 import KYCircularProgress
 
 class StudyPageViewController: UIViewController, TimeConverter {
+    
     enum Mode {
         case remaining
         case current
     }
+    
     let bottomButton = FanMenu(frame: CGRect(center: CGPoint(x: UX.width/2, y: UX.height - UX.bottomMargin), size: CGSize(width: UX.bottomSize, height: UX.bottomSize)))
     let segment = UISegmentedControl(items: ["残り","現在"]).then {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -60,11 +62,12 @@ class StudyPageViewController: UIViewController, TimeConverter {
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
         }
-        else if DataSaver.month == nil || DataSaver.month.monthBaseTime == 0 {
-            let alert = UIAlertController(title: nil, message: "まずは今月の目標を設定しましょう！", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in            let date = DateViewController()
-                date.delegate = self
-                self.presentNavigationController(root: date)
+        else if DataSaver.subjects == nil || DataSaver.subjects.count == 0 {
+            let alert = UIAlertController(title: nil, message: "まずは教科を設定しましょう！", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                let new = NewSubjectController()
+                new.delegate = self
+                self.presentNavigationController(root: new)
             })
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)

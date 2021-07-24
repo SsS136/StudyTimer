@@ -7,23 +7,38 @@
 
 import UIKit
 
+protocol SubjectDetailViewControllerDelegate : AnyObject {
+    func reloadCollectionView()
+}
 
-class SubjectDetailViewController : UIViewController, TimeConverter {
+class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert {
     
     private var leftBarButton:UIBarButtonItem!
+    private var rightBarButton:UIBarButtonItem!
     
     ///This variable must be initialized when the viewController instance is created.
     var subjectTitle:String!
     
-    lazy var history:[Dictionary<DateString, [Int]>.Element]? = {
-        let h = DataSaver.dayStudy[subjectTitle]
+    weak var delegate:SubjectDetailViewControllerDelegate!
+    
+    lazy var _history = {[self] () -> [Dictionary<DateString, [Int]>.Element]? in
+        guard subjectTitle != nil else { return [] }
+        guard DataSaver.dayStudy != nil else {
+            showErrorAlert(title: "最終到達日程を設定してください", handler: {_ in
+                let date = DateViewController()
+                date.delegate = self
+                self.navigationController?.pushViewController(date, animated: true)
+            })
+            return []
+        }
+        let h = DataSaver.dayStudy[subjectTitle] ?? [:]
         let df = DateFormatter()
         df.dateFormat = "yyyy年MM月dd日"
-        let result = h?.sorted {
+        let result = h.sorted {
             df.date(from: $0.0)! > df.date(from: $1.0)!
         }
         return result
-    }()
+    }
     
     private var dateElement:[String] {
         get {
@@ -45,13 +60,14 @@ class SubjectDetailViewController : UIViewController, TimeConverter {
     
     private lazy var headerTitles = ["詳細","履歴\(dateElement.count == 0 ? "はありません" : "")"]
     
-    private lazy var tableViewElements:[[String]] = {
+    private lazy var _tableViewElements = { () -> [[String]] in
         var el = [["目標時間","残りの勉強時間","現在の勉強時間","一日平均勉強時間","最終到達日程までの一日平均勉強時間"]]
-        el.append(dateElement)
+        el.append(self.dateElement)
         return el
-    }()
+    }
     
-    lazy var detailedText:[[String]] = {
+    
+    lazy var _detailedText = {[self] () -> [[String]] in
         let base = DataSaver.subjects.filter { $0.title == subjectTitle }[0]
         var el = [[convertMiniteToHour(base.baseTime),convertMiniteToHour(base.remainingTime),convertMiniteToHour(base.currentTime),convertMiniteToHour(DataSaver.subjectDayAverage(dayStudy:history ?? [])),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: base.remainingTime)]]
         let times = history.map {
@@ -62,16 +78,30 @@ class SubjectDetailViewController : UIViewController, TimeConverter {
         let flatTimes = times?.flatMap { $0 }.map {
             convertMiniteToHour($0)
         } ?? []
+        historyTime = times?.flatMap {$0} ?? []
         el.append(flatTimes)
         return el
-    }()
+    }
+    
+    //if you want to reload this page, reassign these variables
+    private lazy var detailedText = _detailedText()
+    private lazy var history = _history()
+    private lazy var tableViewElements = _tableViewElements()
+    
+    private lazy var historyTime = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItems()
         setupTableView()
     }
-    
+    func reloadPage() {
+        history = _history()
+        detailedText = _detailedText()
+        tableViewElements = _tableViewElements()
+        
+        tableView.reloadData()
+    }
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -80,16 +110,23 @@ class SubjectDetailViewController : UIViewController, TimeConverter {
     }
     private func setupNavigationBarItems() {
         leftBarButton = UIBarButtonItem(title: "キャンセル", style: .plain, target: self, action: #selector(dismissController))
+        rightBarButton = UIBarButtonItem(title: "記録する", style: .plain, target: self, action: #selector(recordStudyTime))
         self.navigationItem.title = subjectTitle
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.barTintColor = .dynamicDark
         self.navigationItem.leftBarButtonItem = leftBarButton
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     @objc private func dismissController() {
         self.dismiss(animated: true, completion: nil)
     }
-    
+    @objc private func recordStudyTime() {
+        let edit = EditViewController()
+        edit.delegate = self
+        edit.initialValue = subjectTitle
+        self.navigationController?.pushViewController(edit, animated: true)
+    }
 }
 extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSource {
     
@@ -114,5 +151,38 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return headerTitles.count
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard indexPath.section == 1 else { return }
+        let hisControlelr = HistoryUpdateViewController()
+        
+        hisControlelr.time = historyTime[indexPath.row]
+        hisControlelr.subjectTitle = subjectTitle
+        hisControlelr.date = tableViewElements[indexPath.section][indexPath.row]
+        hisControlelr.delegate = self
+        
+        self.navigationController?.pushViewController(hisControlelr, animated: true)
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let date_t = tableViewElements[indexPath.section][indexPath.row]
+            let time = historyTime[indexPath.row]
+            if let index = DataSaver.dayStudy[subjectTitle]?[date_t]?.firstIndex(of: time),let base = DataSaver.subjects.filter({ $0.title == subjectTitle }).first,let indexS = DataSaver.subjects.firstIndex(of: base) {
+                DataSaver.dayStudy[subjectTitle]?[date_t]?.remove(at: index)
+                DataSaver.subjects[indexS].currentTime -= time
+                reloadPage()
+                reloadCollectionView()
+                //tableView.deleteRows(at: [indexPath], with: .left)
+            }
+        }
+    }
+}
+
+extension SubjectDetailViewController : HistoryUpdateViewControllerDelegate, EditViewControllerDelegate, DateViewControllerDelegate {
+    func reloadCollectionView() {
+        self.delegate.reloadCollectionView()
+    }
+    func reloadDetails() {
+        reloadPage()
+    }
 }

@@ -89,9 +89,10 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
             cell.layer.shadowColor = UIColor.darkGray.cgColor
             cell.layer.shadowOpacity = 0.4
             cell.layer.shadowRadius = 4
+            cell.isBlanked = false
         }else if indexPath.row == combine.count{
             cell.setupBlank()
-            
+            cell.isBlanked = true
         }else{
             let gesture = StudyTimerLongPress(target: self, action:#selector(deleteRow(_:)))
             gesture.at = indexPath
@@ -101,9 +102,11 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
             cell.layer.shadowColor = UIColor.darkGray.cgColor
             cell.layer.shadowOpacity = 0.4
             cell.layer.shadowRadius = 4
+            cell.isBlanked = false
         }
         return cell
     }
+    
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 18
@@ -119,11 +122,13 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? StudyCollectionCell, !cell.isBlanked else { return }
         if indexPath.row == 0 {
             presentNavigationController(root: TotalViewController())
             return
         }
         let sub = SubjectDetailViewController()
+        sub.delegate = self
         sub.subjectTitle = subjects[indexPath.row - 1].title
         presentNavigationController(root: sub)
     }
@@ -154,6 +159,13 @@ extension StudyCollectionViewController : TimeConverter {
         default:
             break
         }
+    }
+}
+
+extension StudyCollectionViewController : SubjectDetailViewControllerDelegate {
+    func reloadCollectionView() {
+        let mode = self.mode
+        self.mode = mode
     }
 }
 

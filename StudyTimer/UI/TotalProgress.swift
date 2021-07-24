@@ -82,7 +82,6 @@ public class TotalProgressCell: Cell<Bool>, CellType, TimeConverter {
             }
         }
     }
-
     public override func update() {
         super.update()
     }

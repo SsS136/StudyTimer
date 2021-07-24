@@ -11,7 +11,7 @@ protocol TimeConverter {}
 extension TimeConverter {
     func convertMiniteToHour(_ minite:Int) -> String {
         let hours = Float(minite) / Float(60)
-        guard hours > 1 else {
+        guard hours >= 1 else {
             let hour = floor(hours)
             guard hours - hour != 0 else {
                 return "0分"
@@ -61,7 +61,10 @@ extension TimeConverter {
         
         return monSum
     }
-    func studyTimePerDayUntilTheLastDateOfArrival(remainingTime:Int) -> String {
+    func studyTimePerDayUntilTheLastDateOfArrival(remainingTime:Int,nilValue:((UIAlertAction) -> Void)? = nil) -> String {
+        guard DataSaver.atLastDate != nil else {
+            return ""
+        }
         let elapsedDays = Calendar.current.dateComponents([.day], from: Date(), to: DataSaver.atLastDate).day!
         let aveTime = Int(Float(remainingTime) / Float(elapsedDays))
         return convertMiniteToHour(aveTime)

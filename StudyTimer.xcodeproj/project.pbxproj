@@ -18,6 +18,7 @@
 		232F116126A5A488000EA830 /* Entire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F116026A5A488000EA830 /* Entire.swift */; };
 		232F116326A5A495000EA830 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F116226A5A495000EA830 /* Month.swift */; };
 		232F116526A87009000EA830 /* SubjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F116426A87009000EA830 /* SubjectDetailViewController.swift */; };
+		232F116726A9568A000EA830 /* HistoryUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F116626A9568A000EA830 /* HistoryUpdateViewController.swift */; };
 		2342E9E4269DBD9F00C325A1 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9E3269DBD9F00C325A1 /* Then.swift */; };
 		2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9E6269DC23100C325A1 /* CGRect+.swift */; };
 		2342E9EC269DC6EA00C325A1 /* StudyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */; };
@@ -51,6 +52,7 @@
 		232F116026A5A488000EA830 /* Entire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entire.swift; sourceTree = "<group>"; };
 		232F116226A5A495000EA830 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		232F116426A87009000EA830 /* SubjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectDetailViewController.swift; sourceTree = "<group>"; };
+		232F116626A9568A000EA830 /* HistoryUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUpdateViewController.swift; sourceTree = "<group>"; };
 		2342E9E3269DBD9F00C325A1 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		2342E9E6269DC23100C325A1 /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		2342E9EB269DC6EA00C325A1 /* StudyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCollectionViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				2359A03726A1C1020080FF7F /* DateViewController.swift */,
 				2359A03926A1E6090080FF7F /* TotalViewController.swift */,
 				232F116426A87009000EA830 /* SubjectDetailViewController.swift */,
+				232F116626A9568A000EA830 /* HistoryUpdateViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				232F115F26A592DB000EA830 /* TimeConverter.swift in Sources */,
 				230EDB14269DA0EA006F4EF4 /* AppDelegate.swift in Sources */,
 				230EDB16269DA0EA006F4EF4 /* SceneDelegate.swift in Sources */,
+				232F116726A9568A000EA830 /* HistoryUpdateViewController.swift in Sources */,
 				2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */,
 				2342E9EE269DD39500C325A1 /* UIColor+.swift in Sources */,
 			);

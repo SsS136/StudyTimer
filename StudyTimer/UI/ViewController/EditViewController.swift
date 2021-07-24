@@ -12,10 +12,17 @@ protocol EditViewControllerDelegate : AnyObject {
 }
 class EditViewController : FormViewController, TimeConverter, ErrorAlert {
     
-    private let subjects = DataSaver.subjects.map { $0.title }
+    private let subjects:[String] = {
+        guard DataSaver.subjects != nil else { return [String]() }
+        return DataSaver.subjects.map { $0.title }
+    }()
     
     private var leftBarButton:UIBarButtonItem!
     private var rightBarButton:UIBarButtonItem!
+    
+    ///Assign to this variable if you need the initial value of the subject
+    var initialValue:String!
+    
     
     weak var delegate:EditViewControllerDelegate!
     
@@ -33,7 +40,7 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
             <<< PickerRow<String>(){ row in
                 row.title = "教科"
                 row.options = subjects
-                row.value = subjects[0]
+                row.value = initialValue == nil ? subjects[0] : initialValue
             }
             <<< DateRow() {
                 $0.title = "日時"
@@ -96,6 +103,8 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.barTintColor = .dynamicDark
         self.navigationItem.rightBarButtonItem = rightBarButton
-        self.navigationItem.leftBarButtonItem = leftBarButton
+        if initialValue == nil {
+            self.navigationItem.leftBarButtonItem = leftBarButton
+        }
     }
 }

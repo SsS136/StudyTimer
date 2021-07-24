@@ -13,6 +13,8 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
     var subject:Subject!
     var entire:Entire!
     
+    var isBlanked:Bool!
+    
     enum Mode {
         case entire
         case subject
