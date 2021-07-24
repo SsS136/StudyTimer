@@ -81,7 +81,7 @@ class StudyPageViewController: UIViewController, TimeConverter {
             FanMenuButton(id: bottomTitle[2], image: UIImage(systemName: "pencil"), color:.darkKhaki)
         ]
         bottomButton.backgroundColor = .clear
-        bottomButton.menuRadius = 80
+        bottomButton.menuRadius = UX.menuRadius
         bottomButton.interval = (Double.pi, 2 * Double.pi)
         bottomButton.onItemDidClick = {
             if $0.id == self.bottomTitle[0] {//New
@@ -110,7 +110,7 @@ class StudyPageViewController: UIViewController, TimeConverter {
         segment.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.centerX.equalTo(view)
-            $0.width.equalTo(150)
+            $0.width.equalTo(UX.segmentSize)
         }
     }
     private func setupCollectionViewController() {

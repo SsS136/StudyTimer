@@ -71,9 +71,9 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
-            return CGSize(width: view.bounds.width - 40, height: 270)
+            return CGSize(width: view.bounds.width - 40, height: UX.firstCellHeight)
         }else{
-            return CGSize(width: view.bounds.width - 40, height: 65)
+            return CGSize(width: view.bounds.width - 40, height: UX.generalCellHeight)
         }
     }
     
@@ -109,7 +109,7 @@ extension StudyCollectionViewController : UICollectionViewDelegate, UICollection
     
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 18
+        return UX.lineSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -174,7 +174,6 @@ class StudyTimerLongPress : UILongPressGestureRecognizer {
 }
 extension Array {
     subscript (safe index: Index) -> Element? {
-        //indexが配列内なら要素を返し、配列外ならnilを返す（三項演算子）
         return indices.contains(index) ? self[index] : nil
     }
 }

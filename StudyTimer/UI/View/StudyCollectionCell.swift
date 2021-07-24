@@ -23,7 +23,7 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.layer.cornerRadius = 7
+        self.layer.cornerRadius = UX.generalCornerRadius
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -37,7 +37,7 @@ class StudyCollectionCell : UICollectionViewCell, TimeConverter {
         self.backgroundColor = .whiteBlack
         
         let stateView = StudyStateView(subject, mode: mode)
-        stateView.layer.cornerRadius = 7
+        stateView.layer.cornerRadius = UX.generalCornerRadius
         self.addSubview(stateView)
         
         stateView.snp.makeConstraints {

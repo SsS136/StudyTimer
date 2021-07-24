@@ -21,7 +21,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
     
     weak var delegate:SubjectDetailViewControllerDelegate!
     
-    lazy var _history = {[self] () -> [Dictionary<DateString, [Int]>.Element]? in
+    lazy var _history = {[unowned self] () -> [Dictionary<DateString, [Int]>.Element]? in
         guard subjectTitle != nil else { return [] }
         guard DataSaver.dayStudy != nil else {
             showErrorAlert(title: "最終到達日程を設定してください", handler: {_ in
@@ -164,15 +164,20 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
         self.navigationController?.pushViewController(hisControlelr, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == UITableViewCell.EditingStyle.delete {
             let date_t = tableViewElements[indexPath.section][indexPath.row]
             let time = historyTime[indexPath.row]
-            if let index = DataSaver.dayStudy[subjectTitle]?[date_t]?.firstIndex(of: time),let base = DataSaver.subjects.filter({ $0.title == subjectTitle }).first,let indexS = DataSaver.subjects.firstIndex(of: base) {
+            
+            if let index = DataSaver.dayStudy[subjectTitle]?[date_t]?.firstIndex(of: time),
+               let base = DataSaver.subjects.filter({ $0.title == subjectTitle }).first,
+               let indexS = DataSaver.subjects.firstIndex(of: base) {
+                
                 DataSaver.dayStudy[subjectTitle]?[date_t]?.remove(at: index)
                 DataSaver.subjects[indexS].currentTime -= time
                 reloadPage()
                 reloadCollectionView()
-                //tableView.deleteRows(at: [indexPath], with: .left)
+
             }
         }
     }
