@@ -68,6 +68,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
     
     
     lazy var _detailedText = {[self] () -> [[String]] in
+        
         let base = DataSaver.subjects.filter { $0.title == subjectTitle }[0]
         var el = [[convertMiniteToHour(base.baseTime),convertMiniteToHour(base.remainingTime),convertMiniteToHour(base.currentTime),convertMiniteToHour(DataSaver.subjectDayAverage(dayStudy:history ?? [])),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: base.remainingTime)]]
         let times = history.map {
@@ -80,6 +81,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
         } ?? []
         historyTime = times?.flatMap {$0} ?? []
         el.append(flatTimes)
+        
         return el
     }
     
@@ -96,6 +98,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
         setupTableView()
     }
     func reloadPage() {
+        
         history = _history()
         detailedText = _detailedText()
         tableViewElements = _tableViewElements()
@@ -137,15 +140,19 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
         return headerTitles[section]
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Subject")
         cell.textLabel?.text = tableViewElements[indexPath.section][indexPath.row]
         cell.detailTextLabel?.text = detailedText[indexPath.section][indexPath.row]
         cell.detailTextLabel?.textColor = .gray
         cell.selectionStyle = indexPath.section == 0 ? .none : .default
+        
         if indexPath.section == 1 {
             cell.accessoryType = .disclosureIndicator
         }
+        
         return cell
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -165,21 +172,31 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == UITableViewCell.EditingStyle.delete {
+        guard indexPath.section != 0 else { return }
+        
+        if editingStyle == .delete {
+            
             let date_t = tableViewElements[indexPath.section][indexPath.row]
             let time = historyTime[indexPath.row]
             
             if let index = DataSaver.dayStudy[subjectTitle]?[date_t]?.firstIndex(of: time),
                let base = DataSaver.subjects.filter({ $0.title == subjectTitle }).first,
-               let indexS = DataSaver.subjects.firstIndex(of: base) {
+               let indexS = DataSaver.subjects.firstIndex(of: base)
+            {
                 
                 DataSaver.dayStudy[subjectTitle]?[date_t]?.remove(at: index)
                 DataSaver.subjects[indexS].currentTime -= time
+                DataSaver.month.monthCurrentTime -= time
                 reloadPage()
                 reloadCollectionView()
-
+                
             }
+            
         }
+        
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section != 0
     }
 }
 
