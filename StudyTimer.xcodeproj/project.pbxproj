@@ -32,6 +32,7 @@
 		2359A03A26A1E6090080FF7F /* TotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03926A1E6090080FF7F /* TotalViewController.swift */; };
 		2359A03C26A1EB560080FF7F /* TotalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03B26A1EB560080FF7F /* TotalProgress.swift */; };
 		2359A03E26A1FB2B0080FF7F /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2359A03D26A1FB2B0080FF7F /* DateUtil.swift */; };
+		2385B9E226B4712C006A2E72 /* GoalTimeUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385B9E126B4712C006A2E72 /* GoalTimeUpdateViewController.swift */; };
 		239F5B7326A4047600120BDA /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239F5B7226A4047600120BDA /* UIStackView+.swift */; };
 		6AECA10BFF74C1D94CC853E6 /* Pods_StudyTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 993584280FE6065C151C2C9C /* Pods_StudyTimer.framework */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 		2359A03926A1E6090080FF7F /* TotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewController.swift; sourceTree = "<group>"; };
 		2359A03B26A1EB560080FF7F /* TotalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalProgress.swift; sourceTree = "<group>"; };
 		2359A03D26A1FB2B0080FF7F /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		2385B9E126B4712C006A2E72 /* GoalTimeUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeUpdateViewController.swift; sourceTree = "<group>"; };
 		239F5B7226A4047600120BDA /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		993584280FE6065C151C2C9C /* Pods_StudyTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 				2359A03926A1E6090080FF7F /* TotalViewController.swift */,
 				232F116426A87009000EA830 /* SubjectDetailViewController.swift */,
 				232F116626A9568A000EA830 /* HistoryUpdateViewController.swift */,
+				2385B9E126B4712C006A2E72 /* GoalTimeUpdateViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				230EDB14269DA0EA006F4EF4 /* AppDelegate.swift in Sources */,
 				230EDB16269DA0EA006F4EF4 /* SceneDelegate.swift in Sources */,
 				232F116726A9568A000EA830 /* HistoryUpdateViewController.swift in Sources */,
+				2385B9E226B4712C006A2E72 /* GoalTimeUpdateViewController.swift in Sources */,
 				2342E9E7269DC23100C325A1 /* CGRect+.swift in Sources */,
 				2342E9EE269DD39500C325A1 /* UIColor+.swift in Sources */,
 			);
@@ -476,7 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G8RH83B4LT;
+				DEVELOPMENT_TEAM = Z22QB5X543;
 				INFOPLIST_FILE = StudyTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -497,7 +501,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G8RH83B4LT;
+				DEVELOPMENT_TEAM = Z22QB5X543;
 				INFOPLIST_FILE = StudyTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

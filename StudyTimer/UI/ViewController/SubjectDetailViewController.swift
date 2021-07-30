@@ -70,6 +70,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
     lazy var _detailedText = {[self] () -> [[String]] in
         
         let base = DataSaver.subjects.filter { $0.title == subjectTitle }[0]
+        baseTime = base.baseTime
         var el = [[convertMiniteToHour(base.baseTime),convertMiniteToHour(base.remainingTime),convertMiniteToHour(base.currentTime),convertMiniteToHour(DataSaver.subjectDayAverage(dayStudy:history ?? [])),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: base.remainingTime)]]
         let times = history.map {
             $0.map { (key,value) in
@@ -91,6 +92,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
     private lazy var tableViewElements = _tableViewElements()
     
     private lazy var historyTime = [Int]()
+    private lazy var baseTime = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,8 +149,12 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
         cell.detailTextLabel?.textColor = .gray
         cell.selectionStyle = indexPath.section == 0 ? .none : .default
         
-        if indexPath.section == 1 {
+        if indexPath.section == 1 || (indexPath.section == 0 && indexPath.row == 0 ){
             cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
+        }else{
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
         }
         
         return cell
@@ -160,7 +166,17 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard indexPath.section != 0 || indexPath.row != 0 else {
+            let baseTimeUpdate = GoalTimeUpdateViewController()
+            baseTimeUpdate.delegate = self
+            baseTimeUpdate.time = baseTime
+            baseTimeUpdate.subjectTitle = subjectTitle
+        
+            self.navigationController?.pushViewController(baseTimeUpdate, animated: true)
+            return
+        }
         guard indexPath.section == 1 else { return }
+        
         let hisControlelr = HistoryUpdateViewController()
         
         hisControlelr.time = historyTime[indexPath.row]
@@ -200,7 +216,7 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
     }
 }
 
-extension SubjectDetailViewController : HistoryUpdateViewControllerDelegate, EditViewControllerDelegate, DateViewControllerDelegate {
+extension SubjectDetailViewController : HistoryUpdateViewControllerDelegate, EditViewControllerDelegate, DateViewControllerDelegate, GoalTimeUpdateViewControllerDelegate {
     func reloadCollectionView() {
         self.delegate.reloadCollectionView()
     }
