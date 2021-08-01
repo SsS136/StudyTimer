@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-StudyTimer/Pods-StudyTimer-frameworks.sh
+${BUILT_PRODUCTS_DIR}/DynamicButton/DynamicButton.framework
 ${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework
 ${BUILT_PRODUCTS_DIR}/FanMenu/FanMenu.framework
 ${BUILT_PRODUCTS_DIR}/KYCircularProgress/KYCircularProgress.framework

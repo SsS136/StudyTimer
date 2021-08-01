@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Eureka
 import KYCircularProgress
 
 class TotalViewController : UIViewController, TimeConverter {
@@ -16,14 +15,14 @@ class TotalViewController : UIViewController, TimeConverter {
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     var titleElement:[[String]] = {
-        var arr = [["トータル残り","トータル勉強時間","一日の平均勉強時間","最終到達日程","最終到達日程までの一日平均勉強時間"],["月残り勉強時間","月トータル勉強時間","月末までの一日勉強時間"]]
+        var arr = [["目標勉強時間","トータル残り","トータル勉強時間","一日の平均勉強時間","最終到達日程","最終到達日程までの一日平均勉強時間"],["目標勉強時間","月残り勉強時間","月トータル勉強時間","月末までの一日勉強時間"]]
         let date = DataSaver.studyTimePerDay.map { $0.map{(key,value) in key } }
         arr.append(date ?? [])
         return arr
     }()
     
     lazy var detailedText:[[String]] = {
-        var arr = [[convertMiniteToHour(DataSaver.entire.entireRemainingTime),convertMiniteToHour(DataSaver.entire.entireCurrentTime),convertMiniteToHour(Int(DataSaver.dayAve)),DateUtils.stringFromDate(date: DataSaver.atLastDate, format: "yyyy年MM月dd日"),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: DataSaver.entire.entireRemainingTime)],[convertMiniteToHour(DataSaver.month.monthRemainingTime),convertMiniteToHour(DataSaver.month.monthCurrentTime),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: DataSaver.month.monthRemainingTime, date: getLastDateOfThisMonth())]]
+        var arr = [[convertMiniteToHour(DataSaver.entire.entireBaseTime),convertMiniteToHour(DataSaver.entire.entireRemainingTime),convertMiniteToHour(DataSaver.entire.entireCurrentTime),convertMiniteToHour(Int(DataSaver.dayAve)),DateUtils.stringFromDate(date: DataSaver.atLastDate, format: "yyyy年MM月dd日"),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: DataSaver.entire.entireRemainingTime)],[convertMiniteToHour(DataSaver.month.monthBaseTime),convertMiniteToHour(DataSaver.month.monthRemainingTime),convertMiniteToHour(DataSaver.month.monthCurrentTime),studyTimePerDayUntilTheLastDateOfArrival(remainingTime: DataSaver.month.monthRemainingTime, date: getLastDateOfThisMonth())]]
         let times = DataSaver.studyTimePerDay.map { $0.map {(key,value) in convertMiniteToHour(value) } }
         arr.append(times ?? [])
         return arr
@@ -33,7 +32,6 @@ class TotalViewController : UIViewController, TimeConverter {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(getLastDateOfThisMonth())
         setupNavigationBarItems()
         setupTableView()
     }
@@ -66,9 +64,10 @@ extension TotalViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Subject")
-        if (indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 0 {
-            cell = ProgressTableViewCell(type: indexPath.section == 0 ? .Entire : .Month, style: .subtitle, reuseIdentifier: "Subject")
-        }
+//        if (indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 0 {
+//            cell = ProgressTableViewCell(type: indexPath.section == 0 ? .Entire : .Month, style: .subtitle, reuseIdentifier: "Subject")
+//            cell.frame = CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: 58)
+//        }
         cell.textLabel?.text = titleElement[indexPath.section][indexPath.row]
         cell.detailTextLabel?.text = detailedText[indexPath.section][indexPath.row]
         cell.detailTextLabel?.textColor = .gray
@@ -95,28 +94,16 @@ class ProgressTableViewCell : UITableViewCell {
     }
 
     private func setupProgressView(type:Type) {
-        let view = KYCircularProgress(frame: .zero, showGuide: true).then {
-            $0.set(progress: type == .Entire ? Double(DataSaver.entire.entireProgress) : Double(DataSaver.month.monthProgress), duration: 0.1)
-            $0.colors = [.red]
-            $0.transform = CGAffineTransform(scaleX: -1, y: -1)
-        }
         let percent = UILabel().then {
             $0.text = "\(Int((type == .Entire ? Double(DataSaver.entire.entireProgress) : Double(DataSaver.month.monthProgress)) * 100))%"
             $0.textAlignment = .center
             $0.textColor = .black
             $0.font = .boldSystemFont(ofSize: 18)
-            $0.transform = CGAffineTransform(scaleX: -1, y: -1)
         }
-        self.addSubview(view)
-        view.snp.makeConstraints {
-            $0.height.equalToSuperview().multipliedBy(0.8)
-            $0.width.equalTo(self.snp.height).multipliedBy(0.8)
+        self.addSubview(percent)
+        percent.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().offset(-5)
-        }
-        view.addSubview(percent)
-        percent.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
             $0.width.equalTo(60)
             $0.height.lessThanOrEqualTo(18)
         }

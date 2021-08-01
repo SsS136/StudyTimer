@@ -40,12 +40,20 @@ class StudyPageViewController: UIViewController, TimeConverter {
             setupSegment()
             setupCollectionViewController()
             setupBottomButton()
+            checkPreviousTerminate()
         }
-        print(DataSaver.studyTimePerDay)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         detectMonthChange()
+    }
+    private func checkPreviousTerminate() {
+        if UserDefaults.standard.bool(forKey: "terminate") {
+            let ed = EditViewController()
+            ed.delegate = self
+            ed.initialValue = UserDefaults.standard.string(forKey: "LastSubject")
+            presentNavigationController(root: ed)
+        }
     }
     private func testSaveData() {
         UserDefaults.standard.register(defaults: ["Subjects" : [],"Entire" : try! PropertyListEncoder().encode(Entire(entireBaseTime: 0, entireCurrentTime: 0)),"Month" : try! PropertyListEncoder().encode(Month(monthBaseTime: 0, monthCurrentTime: 0)),"dayStudy" : [],"AtLastStudy" : try! JSONEncoder().encode(Date()),"detect" : monthExtracter(date: DataSaver.today)])

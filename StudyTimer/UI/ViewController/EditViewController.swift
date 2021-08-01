@@ -7,6 +7,7 @@
 
 import UIKit
 import Eureka
+
 protocol EditViewControllerDelegate : AnyObject {
     func reloadCollectionView()
 }
@@ -23,24 +24,32 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
     ///Assign to this variable if you need the initial value of the subject
     var initialValue:String!
     
+    var timerView = StopWatchView()
+    var minite:Int!
     
     weak var delegate:EditViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBarItems()
-        
         guard subjects.count != 0 else {
             showErrorAlert(title: "教科がありません") {_ in 
                 self.dismiss(animated: true, completion: nil)
             }
             return
         }
+        setupTableView()
+        setupTimerView()
+    }
+    private func setupTableView() {
         form +++ Section("編集")
             <<< PickerRow<String>(){ row in
                 row.title = "教科"
                 row.options = subjects
                 row.value = initialValue == nil ? subjects[0] : initialValue
+            }
+            .onChange {
+                UserDefaults.standard.setValue($0.value, forKey: "LastSubject")
             }
             <<< DateRow() {
                 $0.title = "日時"
@@ -49,11 +58,34 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
             <<< PhoneRow(){
                 $0.title = "時間"
                 $0.placeholder = "時間を入力してください"
+                if minite != nil {
+                    $0.value = "\(extractHourAndMinitefromMinite(minite).0)"
+                }
             }
             <<< PhoneRow() {
                 $0.title = "分"
                 $0.placeholder = "分を入力してください"
+                if minite != nil {
+                    $0.value = "\(extractHourAndMinitefromMinite(minite).1)"
+                }
             }
+    }
+    private func setupTimerView() {
+        self.view.addSubview(timerView)
+        
+        timerView.delegate = self
+        
+        timerView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        timerView.layer.shadowColor = UIColor.darkGray.cgColor
+        timerView.layer.shadowOpacity = 0.4
+        timerView.layer.shadowRadius = 4
+        
+        timerView.snp.makeConstraints {
+            $0.height.equalTo(150)
+            $0.width.equalToSuperview().multipliedBy(0.92)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+        }
     }
     @objc private func recordSubjectData() {
         
@@ -106,5 +138,18 @@ class EditViewController : FormViewController, TimeConverter, ErrorAlert {
         if initialValue == nil {
             self.navigationItem.leftBarButtonItem = leftBarButton
         }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        //timerView.timer.invalidate()
+        UserDefaults.standard.setValue(false, forKey: "edit")
+    }
+}
+
+extension EditViewController : StopWatchViewDelegate {
+    func useTime(time: Int) {
+        minite = time
+        //tableView.removeFromSuperview()
+        form.removeAll()
+        setupTableView()
     }
 }

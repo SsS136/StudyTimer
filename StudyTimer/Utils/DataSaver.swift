@@ -70,6 +70,25 @@ class DataSaver : TimeConverter {
             setUserDefaultsData(newValue: newValue, forKey: "Month")
         }
     }
+    
+    static var backgroundDate:Date! {
+        get {
+            return UserDefaults.standard.object(forKey: "Date") as? Date
+
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "Date")
+        }
+    }
+    
+    static var elapsedTime:Float {
+        get {
+            return UserDefaults.standard.float(forKey: "etime")
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "etime")
+        }
+    }
 
     static var atLastDate:Date! {
         get {
@@ -193,9 +212,11 @@ fileprivate extension DataSaver {
             do {
                 return try PropertyListDecoder().decode(T.self, from: data)
             }catch{
+                print("failed to decode data")
                 return nil
             }
         }else{
+            print("failed to get data")
             return nil
         }
     }
@@ -207,7 +228,7 @@ fileprivate extension DataSaver {
                 com()
             }
         }catch{
-            print("Failed to Set Month Data")
+            print("Failed to Set Data")
         }
     }
     

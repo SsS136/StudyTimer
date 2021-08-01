@@ -10,4 +10,5 @@ target 'StudyTimer' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'KYCircularProgress'
   pod 'Eureka'
+  pod 'DynamicButton', '~> 6.2.1'
 end
