@@ -61,12 +61,21 @@ extension TimeConverter {
         
         return monSum
     }
-    func studyTimePerDayUntilTheLastDateOfArrival(remainingTime:Int,nilValue:((UIAlertAction) -> Void)? = nil) -> String {
+    func studyTimePerDayUntilTheLastDateOfArrival(remainingTime:Int,date:Date! = nil,nilValue:((UIAlertAction) -> Void)? = nil) -> String {
         guard DataSaver.atLastDate != nil else {
             return ""
         }
-        let elapsedDays = Calendar.current.dateComponents([.day], from: Date(), to: DataSaver.atLastDate).day!
+        let elapsedDays = Calendar.current.dateComponents([.day], from: Date(), to: date == nil ?  DataSaver.atLastDate : date).day!
         let aveTime = Int(Float(remainingTime) / Float(elapsedDays))
         return convertMiniteToHour(aveTime)
+    }
+    func getLastDateOfThisMonth() -> Date? {
+        let date = NSDate()
+        let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!
+        var comp = calendar.components([.year, .month, .day, .hour, .minute, .second], from: date as Date)
+        let range = calendar.range(of: .day, in: .month, for: date as Date)
+        let lastDay = range.length
+        comp.day = lastDay
+        return calendar.date(from: comp)
     }
 }

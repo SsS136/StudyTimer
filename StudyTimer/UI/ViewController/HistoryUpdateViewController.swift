@@ -19,7 +19,7 @@ class HistoryUpdateViewController : FormViewController, TimeConverter, ErrorAler
     
     ///This variable must be initialized when the viewController instance is created.
     var time:Int!
-    var subjectTitle:String!
+    var subjectTitle:SubjectTitle!
     var date:DateString! //aka String
     
     weak var delegate:HistoryUpdateViewControllerDelegate!

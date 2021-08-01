@@ -17,7 +17,7 @@ class SubjectDetailViewController : UIViewController, TimeConverter, ErrorAlert 
     private var rightBarButton:UIBarButtonItem!
     
     ///This variable must be initialized when the viewController instance is created.
-    var subjectTitle:String!
+    var subjectTitle:SubjectTitle!
     
     weak var delegate:SubjectDetailViewControllerDelegate!
     
@@ -147,7 +147,6 @@ extension SubjectDetailViewController : UITableViewDelegate, UITableViewDataSour
         cell.textLabel?.text = tableViewElements[indexPath.section][indexPath.row]
         cell.detailTextLabel?.text = detailedText[indexPath.section][indexPath.row]
         cell.detailTextLabel?.textColor = .gray
-        cell.selectionStyle = indexPath.section == 0 ? .none : .default
         
         if indexPath.section == 1 || (indexPath.section == 0 && indexPath.row == 0 ){
             cell.accessoryType = .disclosureIndicator

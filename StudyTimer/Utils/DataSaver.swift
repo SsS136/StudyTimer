@@ -15,6 +15,9 @@ typealias DateString = String
 /// This type refers to the amount of study time per day for each subject
 typealias DayStudyData = [SubjectTitle:[DateString:[Int]]]
 
+/// This type refers to the amount of study per day
+typealias PerDay = [Dictionary<DateString,Int>.Element]
+
 
 ///class for storing many study data in UserDefaults.
 class DataSaver : TimeConverter {
@@ -102,6 +105,28 @@ class DataSaver : TimeConverter {
             setUserDefaultsData(newValue: newValue, forKey: "dayStudy")
         }
     }
+    /// Perday = [Dictionary<DateString,Int>.Element]
+    static var studyTimePerDay:PerDay! {
+        get {
+            guard dayStudy != nil else { return PerDay()}
+            let allData = dayStudy
+                .map { $1 }
+                .flatMap { $0 }
+            var store = [DateString:[Int]]()
+            allData.forEach { store[$0, default: []].append(contentsOf: $1) }
+            var store_1 = [DateString:Int]()
+            store.forEach {
+                store_1.updateValue($1.reduce(0) { $0 + $1 }, forKey: $0)
+            }
+            let df = DateFormatter()
+            df.dateFormat = "yyyy年MM月dd日"
+            return store_1.sorted {
+                df.date(from: $0.0)! > df.date(from: $1.0)!
+            }
+           // return store_1
+        }
+    }
+    
     static var today:String {
         let formatter = DateFormatter()
         formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMM", options: 0, locale: Locale(identifier: "ja_JP"))

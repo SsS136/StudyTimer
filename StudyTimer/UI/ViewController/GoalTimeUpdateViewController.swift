@@ -19,7 +19,8 @@ class GoalTimeUpdateViewController : FormViewController, TimeConverter, ErrorAle
     
     ///This variable must be initialized when the viewController instance is created.
     var time:Int!
-    var subjectTitle:String!
+    ///This variable must be initialized when the viewController instance is created.
+    var subjectTitle:SubjectTitle!
 
     
     weak var delegate:GoalTimeUpdateViewControllerDelegate!
@@ -52,16 +53,15 @@ class GoalTimeUpdateViewController : FormViewController, TimeConverter, ErrorAle
         
         guard let hoursBase = form.allRows[0].baseValue as? String,let hours = NumberFormatter().number(from: hoursBase) as? Int else { showErrorAlert(title: "時間が正しく入力されていません"); return }
         guard let minitesBase = form.allRows[1].baseValue as? String, let minites = NumberFormatter().number(from: minitesBase) as? Int else { showErrorAlert(title: "分が正しく入力されていません"); return }
-        
         guard var subject = DataSaver.subjects.filter({ $0.title == subjectTitle }).first else { showErrorAlert(title: "教科データの取得に失敗しました"); return }
         guard let index = DataSaver.subjects.firstIndex(of: subject) else { showErrorAlert(title: "教科データの取得に失敗しました"); return }
+        
         subject.baseTime = convertHourToMinite(hour: hours, minite: minites)
         DataSaver.subjects[index] = subject
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.delegate.reloadDetails()
             self.delegate.reloadCollectionView()
-            
             self.dismissController()
         }
     }

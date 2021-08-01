@@ -41,6 +41,7 @@ class StudyPageViewController: UIViewController, TimeConverter {
             setupCollectionViewController()
             setupBottomButton()
         }
+        print(DataSaver.studyTimePerDay)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
